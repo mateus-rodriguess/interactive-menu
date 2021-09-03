@@ -1,0 +1,26 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block content %}
+    <div class="row ">
+        <div class="col-md-6 offset-md-3 mt-2 ">
+            <div class="card  auth-card">
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}">
+            
+                        {{ form|crispy }}
+
+                        <button type="submit" class="btn btn-primary btn-block mt-2">Entrar</button>
+                    </form>
+                    <p class="change-form-p">Quer ter um login? <a href="{% url 'login'%}">Clique aqui!</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

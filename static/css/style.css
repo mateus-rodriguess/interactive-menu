@@ -1,0 +1,24 @@
+body{
+    background-color: rgb(97, 110, 248);
+}
+
+.logo{
+    width: 10px;
+    height: 10px;
+}
+.god {
+    padding: 0;
+    margin: 0;
+}
+
+.sizeder {
+    width: 16.75rem;
+    height: 16.75rem;
+
+}
+
+.size {
+
+    padding: 10px;
+    margin-left: 10px;
+}

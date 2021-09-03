@@ -1,0 +1,18 @@
+{% load static %}
+<div class="container ">
+    <div class="row ">
+        <div class="pagination">
+             <span class="step-links">
+             {% if page.has_previous %}
+             <a href="?page={{ page.previous_page_number }}"><button class="btn btn-secondary btn-block mt-2" >Previous</button></a>
+             {% endif %}
+             <span class="current">
+             Page {{ page.number }} of {{ page.paginator.num_pages }}.
+             </span>
+             {% if page.has_next %}
+             <a href="?page={{ page.next_page_number }}"> <button class="btn btn-secondary btn-block mt-2" >Next</button></a>
+             {% endif %}
+             </span>
+        </div>
+    </div>
+</div>
