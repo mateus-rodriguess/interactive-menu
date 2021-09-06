@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    <div id="sidebar">
+     <div class="row p-5 text-white bg-danger ">
         <h3>Categories</h3>
         <ul>
             <li {% if not category %} class="selected" {% endif %}>
                 <a href="{% url "product_list" %}">All</a>
             </li>
+            
             {% for c in categories %}
             <li {% if category.slug == c.slug %} class="selected" {% endif %}>
                 <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
@@ -18,13 +19,17 @@
             {% endfor %}
         </ul>
     </div>
-    <div id="main" class="product-list">
-        <h1>{% if category %}{{ category.name }}{% else %} Products
-            {% endif %}</h1>
+
+    <div id="main " class="product-list container">
+        <h1>
+            {% if category %}{{ category.name }}{% else %} Products
+            {% endif %}
+        </h1>
         {% for product in products %}
         <div class="item">
             <a href="{{ product.get_absolute_url }}">
-                <img src="{% if product.image %}{{ product.image.url }} {%else %} {% static "img/feijãotropero.png" %} {% endif %}">
+                <img class="product img-fluid img-thumbnail"  style="width: 200px;" 
+                    src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "img/feijãotropero.png" %} {% endif %}">
             </a>
             <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
             <br>

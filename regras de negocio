@@ -1,0 +1,30 @@
+Sistema web - cardapio interativo para restaurante
+
+Design: Bootstrap
+html,css,JS
+Banco de dados: postgree
+Linguagem: python (django)
+
+
+1ª entrega: Esquema elaborado do que será o sistema. 
+primeira projeçao o que vai ter; como será o projeto;
+mudanças necessarias nos processos do estabelecimento;
+como os clientes acessará o sistema.
+
+2ª entrega:
+cardápio digital
+
+listagem dos produtos,
+lista dos itens do restaurante.
+
+3ª entrega: 
+cardápio com fotos, preço e categoria
+
+4ª entrega:
+cardápio interativo com o carrinho de compra
+
+5ª entrega: 
+implementação de abertura do app via qr code
+
+diferencial: gestão de estoque em tempo real
+avisos opcionais encima dos pedidos

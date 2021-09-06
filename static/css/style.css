@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(130, 136, 199);
+    background-color: rgb(3, 3, 35);
 }
 
 .logo{
@@ -21,4 +21,8 @@ body{
 
     padding: 10px;
     margin-left: 10px;
+}
+
+.product {
+    width: 200px;
 }
