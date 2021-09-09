@@ -6,8 +6,8 @@
 
 {% block content %}
     <div class="row">
-         <div class="col bg-danger">
-            <h3>Categories</h3>
+         <div class="col-3 bg-danger">
+            <h4>Categories</h4>
             <ul>
                 <li {% if not category %} class="selected" {% endif %}>
                     <a href="{% url "product_list" %}">All</a>
