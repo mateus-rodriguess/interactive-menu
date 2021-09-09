@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-        {% if category %}{{ category.name }}{% else %}Products{% endif %}
+        {% if category %}{{ category.name }}{% else %}Produtos{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
          
             <ul class="nav nav-tabs">
                 <li class="nav-item" {% if not category %} class="selected" {% endif %}>
-                    <a class="nav-link active white-text" href="{% url "product_list" %}">All</a>
+                    <a class="nav-link active white-text" href="{% url "product_list" %}">Todos</a>
                 </li>
 
                 {% for c in categories %}
@@ -23,26 +23,27 @@
           </div>
     
             <h1>
-                {% if category %}{{ category.name }}{% else %} Products
+                {% if category %}{{ category.name }}{% else %} Todos os produtos
                 {% endif %}
             </h1>
 
             {% for product in products %}
-                <div class="col-6 card card-personal mb-2">
-                    <div class="view card-title">
-                        <a href="{{ product.get_absolute_url }}">
-                            <img class="img-fluid card-img-top" 
-                                src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "img/feijãotropero.png" %} {% endif %}">
-                        </a>
-                    </div>
-                    <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
-                        <h4 class="card-title white-text">{{ product.name }}</h4></a>
-                    <br>
-                    <h6 class="card-title"> {{ product.price }} </h6> 
-                   
+            <div class="col-md-3 card card-personal mb-2 me-3 p-2">
+                <div class="view card-title d-flex justify-content-center">
+                    <a href="{{ product.get_absolute_url }}">
+                        <img class="img-fluid card-img-top" 
+                        src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "img/feijãotropero.png" %} {% endif %}">
+                    </a>
                 </div>
+                <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
+                    <h4 class="card-title white-text">{{ product.name }}</h4></a>
+                    {%if product.available %}
+                        <p class="text-success d-flex justify-content-center">Disponível</p>
+                    {%endif%}
+                        <h5 class="card-title d-flex justify-content-center"> R$ {{ product.price }} </h5> 
+                    
+                    </div>
             {% endfor %}
-     
 
     </div>
 {% endblock %}

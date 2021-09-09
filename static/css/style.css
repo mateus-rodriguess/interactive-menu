@@ -1,3 +1,7 @@
 .body{
     background-color: blue;
 }
+
+.card-img-top{
+    max-width: 290px;
+}
