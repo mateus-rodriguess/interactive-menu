@@ -21,7 +21,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('apps.account.urls')),
-    path('', include('apps.menu.urls')),
+    path('cart/', include('apps.cart.urls', namespace='cart')),
+    path('', include('apps.menu.urls', namespace='menu')),
+   
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

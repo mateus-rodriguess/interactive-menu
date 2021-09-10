@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'apps.account',
-    'apps.menu',
-    'apps.core_config',
+    'apps.account.apps.AccountConfig',
+    'apps.menu.apps.MenuConfig',
+    'apps.core_config.apps.CoreConfigConfig',
+    'apps.cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -145,6 +146,9 @@ LOGIN_REDIRECT_URL = '/'
 
 # crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# session 
+CART_SESSION_ID = 'cart'
 
 # para produção
 # python manage.py collectstatic

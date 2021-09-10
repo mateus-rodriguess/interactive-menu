@@ -10,14 +10,14 @@
          
             <ul class="nav nav-tabs">
                 <li class="nav-item" {% if not category %} class="selected" {% endif %}>
-                    <a class="nav-link active white-text" href="{% url "product_list" %}">Todos</a>
+                    <a class="nav-link active white-text" href="{% url "menu:product_list" %}">Todos</a>
                 </li>
 
                 {% for c in categories %}
                     <li class="nav-item" {% if category.slug == c.slug %} class="selected" {% endif %}>
-                        <a class="nav-link white-text" href="{{ c.get_absolute_url }}"><p>{{c.name}}</p></a>
+                        <a class="nav-link white-text" href="{{ c.get_absolute_url }}">{{c.name}}</a>
                     </li>
-                
+
                 {% endfor %}
             </ul>
           </div>
@@ -28,36 +28,21 @@
             </h1>
 
             {% for product in products %}
-<<<<<<< Updated upstream
-            <div class="col-md-3 card card-personal mb-2 me-3 p-2">
-                <div class="view card-title d-flex justify-content-center">
-                    <a href="{{ product.get_absolute_url }}">
-                        <img class="img-fluid card-img-top" 
-                        src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "img/feijãotropero.png" %} {% endif %}">
-                    </a>
-=======
-                <div class="col-6 card card-personal p-2">
-                    <div class="view card-title">
+                <div class="col-md-3 card card-personal mb-2 me-3 p-2">
+                    <div class="view card-title d-flex justify-content-center">
                         <a href="{{ product.get_absolute_url }}">
                             <img class="img-fluid card-img-top" 
-                                src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "img/feijãotropero.png" %} {% endif %}">
+                            src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "img/feijãotropero.png" %} {% endif %}">
                         </a>
                     </div>
                     <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
                         <h4 class="card-title white-text">{{ product.name }}</h4></a>
-                    <br>
-                    <h6 class="card-title"> {{ product.price }} </h6> 
-                   
->>>>>>> Stashed changes
-                </div>
-                <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
-                    <h4 class="card-title white-text">{{ product.name }}</h4></a>
-                    {%if product.available %}
-                        <p class="text-success d-flex justify-content-center">Disponível</p>
-                    {%endif%}
-                        <h5 class="card-title d-flex justify-content-center"> R$ {{ product.price }} </h5> 
-                    
-                    </div>
+                        {% if product.available %}
+                            <p class="text-success d-flex justify-content-center">Disponível</p>
+                        {%endif%}
+                            <h5 class="card-title d-flex justify-content-center"> R$ {{ product.price }} </h5> 
+                        
+            </div>
             {% endfor %}
 
     </div>

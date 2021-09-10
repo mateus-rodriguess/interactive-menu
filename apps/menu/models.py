@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.fields import IntegerField
 from django.urls import reverse
 # Create your models here.
 
@@ -14,9 +13,6 @@ class Table(models.Model):
     def __str__(self):
         return self.number
 
-    # não precisa disso, so quero salvar a mesa no banco de dados
-    def get_absolute_url(self):
-        return reverse("Table_detail", kwargs={"pk": self.pk})
 
 
 class Category(models.Model):
@@ -31,7 +27,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     def get_absolute_url(self):
-        return reverse('product_list_by_category', args=[self.slug])
+        return reverse('menu:product_list_by_category', args=[self.slug])
 
 
 class Product(models.Model):
@@ -60,4 +56,4 @@ class Product(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('product_detail', args=[self.id, self.slug])
+        return reverse('menu:product_detail', args=[self.id, self.slug])
