@@ -13,13 +13,11 @@
                 {% static " img/feijãotropero.png" %}{% endif %}">
         </div>
           
-        <div class="col-md-6 card card-personal mt-2 me-3">
+        <div class="col-md-6 card card-personal mt-2 ">
             <h1>{{ product.name }}</h1>
-            <h2>
-                <a class="" href="{{ product.category.get_absolute_url }}">
+            <a class=" " href="{{ product.category.get_absolute_url }}">
                     {{ product.category }}
-                </a>
-            </h2>
+            </a>
             <h5 class=""> R$ {{ product.price }}</h5>
             <form action="{% url "cart:cart_add" product.id %}" method="post">
                  {{ cart_product_form }}
