@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import CreateUser
 
+app_name = 'account'
 # urls
 urlpatterns = [
    path('register/', CreateUser.as_view(), name="register"),

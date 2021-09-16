@@ -2,31 +2,35 @@
 {% load static %}
 
 {% block title %}
-    {{ product.name }}
+{{ product.name }}
 {% endblock %}
 
 {% block content %}
-    
-    <div class="row mt-2">
-        <div class="col-md-5">
-                    <img class="img-fluid " src="{% if product.image %}{{ product.image.url }}{% else %}
-                {% static " img/feijãotropero.png" %}{% endif %}">
-        </div>
-          
-        <div class="col-md-6 card card-personal mt-2 ">
-            <h1>{{ product.name }}</h1>
-            <a class=" " href="{{ product.category.get_absolute_url }}">
-                    {{ product.category }}
-            </a>
-            <h5 class=""> R$ {{ product.price }}</h5>
-            <form action="{% url "cart:cart_add" product.id %}" method="post">
-                 {{ cart_product_form }}
-                 {% csrf_token %}
-                 <input type="submit" value="Add to cart">
-            </form>
-            {{ product.description|linebreaks }}
-        </div>
 
+<div class="row mt-2">
+    <div class="col-md-5">
+        <img class="img-fluid " src="{% if product.image %}{{ product.image.url }}{% else %}
+                {% static " img/feijãotropero.png" %}{% endif %}">
     </div>
-  
+
+    <div class="col-md-6 card card-personal mt-2 ">
+        <h1>{{ product.name }}</h1>
+        <a class=" " href="{{ product.category.get_absolute_url }}">
+            {{ product.category }}
+        </a>
+        <h5 class=""> R$ {{ product.price }}</h5>
+        <form action="{% url "cart:cart_add" product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add to cart">
+            
+            <a href="{% url "orders:order_create" %}" class="btn btn-success">
+                Checkout
+            </a>
+        </form>
+        {{ product.description|linebreaks }}
+    </div>
+
+</div>
+
 {% endblock %}

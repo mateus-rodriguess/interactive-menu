@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product
+from .models import Category, Product, Table
 
 
 @admin.register(Category)
@@ -14,3 +14,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Table)
+class tableAdmin(admin.ModelAdmin):
+    list_display = ['number', 'max']
+    

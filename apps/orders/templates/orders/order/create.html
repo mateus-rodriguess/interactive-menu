@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}
+    Compra
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+        <div class="col-md-12">
+            <h1>Compra</h1>
+            <div class="">
+                <h3>Compra ai</h3>
+                
+                <ul class="nav nav-tabs">
+                    {% for item in cart %}
+                <li class="nav-item">
+                    {{ item.quantity }}x {{ item.product.name }}
+                    <span>R$ {{ item.total_price }}</span>
+                </li>
+                {% endfor %}
+                </ul>
+                <p>Total: ${{ cart.get_total_price }}</p>
+            </div>
+            <form method="post" class="order-form">
+            {{ form.as_p }}
+            <p><input type="submit" value="Place order"></p>
+            {% csrf_token %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
