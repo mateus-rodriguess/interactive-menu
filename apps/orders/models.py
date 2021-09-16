@@ -14,11 +14,11 @@ STATUS_ORDER_CHOICES = (
 
 class Order(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT)
-    table = models.OneToOneField(Table, on_delete=models.PROTECT)
-   
+    table = models.ManyToManyField(Table,blank=True, null=True, default=1)
+
     paid = models.BooleanField(default=False)
     status = models.CharField(choices=STATUS_ORDER_CHOICES, max_length=50)
-
+    note = models.CharField(null=True, blank=True , max_length=110, default=" ")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -45,8 +45,8 @@ class OrderItem(models.Model):
     status = models.CharField(choices=STATUS_ITEM_ORDER_CHOICES, max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
-    note = models.CharField(blank=True, null=True, max_length=100)
-    
+   
+ 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

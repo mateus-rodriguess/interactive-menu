@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}
     Compra
 {% endblock %}
@@ -8,8 +9,6 @@
         <div class="col-md-12">
             <h1>Compra</h1>
             <div class="">
-                <h3>Compra ai</h3>
-                
                 <ul class="nav nav-tabs">
                     {% for item in cart %}
                 <li class="nav-item">
@@ -20,9 +19,9 @@
                 </ul>
                 <p>Total: ${{ cart.get_total_price }}</p>
             </div>
-            <form method="post" class="order-form">
-            {{ form.as_p }}
-            <p><input type="submit" value="Place order"></p>
+            <form method="post" class="form">
+             {{ form|crispy }}
+            <p><input type="submit" value="comprar" class="btn btn-primary mt-1"></p>
             {% csrf_token %}
             </form>
         </div>
