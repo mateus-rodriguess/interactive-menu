@@ -28,3 +28,16 @@ implementação de abertura do app via qr code
 
 diferencial: gestão de estoque em tempo real
 avisos opcionais encima dos pedidos
+
+>>>>>>>>>> path 2
+chamar garçor.
+orden de compra dos pedidos
+carrinho de compras.
+confirmação de pedidos
+status do pedido, comcluido ou não
+status, para cada models
+table messa, numero da mesa
+metodos de pagamento na ordem do pedido
+observações do pedido, na ordem do pedido.
+cadastro, nome, cpf, email, senha, user do django
+como fazer QR code
