@@ -28,6 +28,7 @@
             </h1>
 
             {% for product in products %}
+            <i class="fas fa-user-alt"></i>
                 <div class="col-md-4 card card-personal">
                     <div class="view card-title d-flex justify-content-center">
                         <a href="{{ product.get_absolute_url }}">
@@ -38,9 +39,9 @@
                     <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
                         <h4 class="card-title white-text">{{ product.name }}</h4></a>
                         {% if product.available %}
-                            <p class="text-success d-flex justify-content-center">Disponível</p>
+                        <h5 class="card-title d-flex justify-content-center"> R$ {{ product.price }} <p class="text-success badge badge-primary text-wrap">Disponível</p></h5> 
                         {%endif%}
-                            <h5 class="card-title d-flex justify-content-center"> R$ {{ product.price }} </h5> 
+                         
                         
             </div>
             {% endfor %}

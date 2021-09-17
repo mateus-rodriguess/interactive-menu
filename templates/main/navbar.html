@@ -1,8 +1,8 @@
 {% load site_tags %}
 {% load static %}
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid p-1">
     <a class="navbar-brand pd-5" href="/">{% name_site %}</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -13,24 +13,24 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      </li>
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
+          </li>
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
       </ul>
-      <ul class="">
-        <li>
-          {% with total_items=cart|length %}
-          {% if total_items > 0 %}
-              Seu lanches:
-              <a href="{% url "cart:cart_detail" %}">
-              {{ total_items }} item{{ total_items|pluralize }}, R${{ cart.get_total_price }}
-              </a>
-          {% else %}
-            Sem lanches
-          {% endif %}
-          {% endwith %}
-        </li>
-      </ul>
+    <!-- NÃO SEI FRONT END-->
+    <a class="nav-link active" href="{% url "cart:cart_detail" %}">Seu lanches:
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+                {{ total_items }} item{{ total_items|pluralize }}, R${{ cart.get_total_price }}
+            {% else %}
+              Sem lanches
+            {% endif %}
+            {% endwith %}
+        </a>
+        <p>
+          <a class="nav-link active" aria-current="page" href="/">Perfil</a>
+        </p>
     </div>
   </div>
 </nav>
+

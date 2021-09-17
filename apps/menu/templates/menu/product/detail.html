@@ -25,9 +25,17 @@
                 {{ cart_product_form|crispy }}
                 {% csrf_token %}
             </div>
-            <input type="submit" value="Adicionar {{product.name}}s">
+            <input type="submit" class="form-control" value="Adicionar {{product.name}}s">
         </form>
-        {{ product.description|linebreaks }}
+        <div class="col-md-6 card card-personal mt-2 " >
+            <div class="p-1">
+                <p>
+                    {{ product.description|linebreaks }}
+                </p>
+            </div>
+         
+        </div>
+       
     </div>
 
 </div>

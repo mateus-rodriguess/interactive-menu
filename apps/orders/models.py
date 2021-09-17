@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from apps.menu.models import Product, Table
-from apps.account.models import Profile
+
 
 
 
@@ -13,12 +13,14 @@ STATUS_ORDER_CHOICES = (
 
 
 class Order(models.Model):
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
-    table = models.ManyToManyField(Table,blank=True, null=True, default=1)
+    # possivel troca de user pra profile
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    table = models.ForeignKey(Table, on_delete=models.PROTECT, blank=True, null=True)
 
     paid = models.BooleanField(default=False)
-    status = models.CharField(choices=STATUS_ORDER_CHOICES, max_length=50)
-    note = models.CharField(null=True, blank=True , max_length=110, default=" ")
+    status = models.CharField(choices=STATUS_ORDER_CHOICES,blank=True, null=True, max_length=50)
+    note = models.CharField(blank=True, null=True, max_length=110, default="")
+   
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

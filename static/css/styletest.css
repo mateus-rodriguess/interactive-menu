@@ -1,9 +1,5 @@
-.body{
+body {
     background-color: blue;
-}
-
-.background{
-    color: rgb(16, 82, 148);
 }
 
 a:link {
@@ -14,7 +10,7 @@ a:visited {
     text-decoration: none;
 }
 
-.ok{
-    width: 200px;
-    height: 200px;
+p {
+    font-size: 12;
 }
+

@@ -6,7 +6,7 @@ from django.urls import reverse
 class Table(models.Model):
     number = models.IntegerField(unique=True)
     description = models.TextField(blank=True)
-    max = models.IntegerField(blank=True)
+    max = models.IntegerField(null=True, blank=True)
     # mais fields
     class Meta:
         verbose_name = ("table")
