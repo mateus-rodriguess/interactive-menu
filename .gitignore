@@ -9,7 +9,8 @@ images/
 Pipfile.lock
 # C extensions
 *.so
-
+#requirement
+requirements.txt
 # Distribution / packaging
 .Python
 build/
