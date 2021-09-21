@@ -9,8 +9,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='Profile') 
     first_name = models.CharField(max_length=200, blank=True, unique=False, default="First name")
     last_name = models.CharField(max_length=200, blank=True,  unique=False, default="Last name")    
-    cpf = CPFField('cpf')
-    slug = models.SlugField(unique=True, blank=True)
+    CPF = CPFField('cpf')
+    
+    slug = models.SlugField(unique=True, blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -20,7 +21,7 @@ class Profile(models.Model):
         verbose_name_plural = "profiles"
     
     def __str__(self):
-        return f"{self.first_name} - {self.cpf}" 
+        return f"{self.first_name} - {self.CPF}" 
 
     def get_absolute_url(self):
         return reverse("account:profile-detail-view", kwargs={"slug": self.user})
