@@ -28,4 +28,4 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Your application will be running at `http://127.0.0.1:800
+Your application will be running at `http://127.0.0.1:8000`
