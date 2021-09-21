@@ -6,11 +6,11 @@
 {% endblock navbar %}
 
 {% block content %}
-    <div class="row ">
-        <div class="col-md-4 offset-md-4 mt-5 ">
-            <div class="card  auth-card">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card  auth-card mt-5">
             
-                <div class="card-body">
+                <div class="card-body ">
                     <h4 class="card-title text-center">Login</h4>
                     <form method="post">
                         {% csrf_token %}

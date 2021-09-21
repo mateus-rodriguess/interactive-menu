@@ -6,30 +6,31 @@
 
 {% block content %}
     <div class="row">
-         <div class="col-md-12">
+         <div class="co-l2  p-1">
          
             <ul class="nav nav-tabs">
-                <li class="nav-item" {% if not category %} class="selected" {% endif %}>
-                    <a class="nav-link active white-text" href="{% url "menu:product_list" %}">Todos</a>
+                <li {% if not category %} class="nav-item" {% endif %}>
+                    <a class="nav-link active" href="{% url "menu:product_list" %}">Todos</a>
                 </li>
-
                 {% for c in categories %}
-                    <li class="nav-item" {% if category.slug == c.slug %} class="selected" {% endif %}>
-                        <a class="nav-link white-text" href="{{ c.get_absolute_url }}">{{c.name}}</a>
+                    <li class="nav-item" >
+                        <a class="nav-link " href="{{ c.get_absolute_url }}">{{c.name}}</a>
                     </li>
-
                 {% endfor %}
             </ul>
           </div>
     
             <h1>
-                {% if category %}{{ category.name }}{% else %} Todos os produtos
+                {% if category %}
+                    {{ category.name }}
+                {% else %} 
+                    Todos os produtos
                 {% endif %}
             </h1>
 
             {% for product in products %}
            
-                <div class="col-12 card card-personal">
+                <div class="col-sm-6 card card-personal ">
                     <div class="view card-title d-flex justify-content-center">
                         <a href="{{ product.get_absolute_url }}">
                             <img class="img-fluid card-img-top" 

@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
+ALLOWED_HOSTS = ['192.168.0.2','localhost', '127.0.0.1']
 
 
 # Application definition
@@ -145,8 +145,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/'
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'account:login'
+LOGIN_URL = 'account:login' 
 # crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
