@@ -4,7 +4,9 @@ __pycache__/
 *$py.class
 # imagem
 images/
-
+# vs code
+.idea/
+idea/
 # Pipfile
 Pipfile.lock
 # C extensions
