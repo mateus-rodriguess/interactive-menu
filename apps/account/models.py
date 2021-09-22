@@ -16,12 +16,12 @@ class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('first_name',)
+        ordering = ('created',)
         verbose_name = "profile"
         verbose_name_plural = "profiles"
     
     def __str__(self):
-        return f"{self.first_name} - {self.CPF}" 
+        return f"{self.first_name} - {self.CPF[0:4]}" 
 
     def get_absolute_url(self):
         return reverse("account:profile-detail-view", kwargs={"slug": self.user})

@@ -34,13 +34,16 @@
                     <div class="view card-title d-flex justify-content-center">
                         <a href="{{ product.get_absolute_url }}">
                             <img class="img-fluid card-img-top" 
-                            src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "img/feijãotropero.png" %} {% endif %}">
+                            src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "img/feijãotropero.png" %} {% endif %}"
+                            >
                         </a>
                     </div>
                     <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
                     <h4 class="card-title white-text">{{ product.name }}</h4></a>
                     {% if product.available %}
-                        <h5 class="card-title d-flex justify-content-center"> R$ {{ product.price }} <p class="text-success badge badge-primary text-wrap">Disponível</p></h5> 
+                        <h5 class="card-title d-flex justify-content-center">
+                            R$ {{ product.price }} 
+                            <p class="text-success badge badge-primary text-wrap">Disponível</p></h5> 
                     {%endif%}
                          
                 </div>

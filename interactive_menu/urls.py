@@ -18,6 +18,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+# Alteração no painel administrativo
+admin.site.site_header = "Administração"
+admin.site.site_title = "ADM"
+admin.site.index_title = "Bem vindo"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('apps.account.urls',  namespace='account')),
