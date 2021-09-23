@@ -13,7 +13,7 @@ STATUS_ORDER_CHOICES = (
 
 
 class Order(models.Model):
-    # possivel troca de user pra profile
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     table = models.ForeignKey(Table, on_delete=models.PROTECT, blank=True, null=True)
 

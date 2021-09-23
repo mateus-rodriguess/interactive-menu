@@ -28,7 +28,16 @@ def ProfileDetailView(request, slug):
     """
     user profile view
     """  
-    return render(request, "profile/profile.html")
+    profile = Profile.objects.get(user=request.user)    
+    profile_form = ProfileEditForm(request.POST or None, request.FILES or None, instance=profile)
+
+    if request.method == 'POST':
+        if profile_form.is_valid():
+            profile_form.save()
+            redirect('account:profile-detail-view', slug)
+    else:
+        profile_form = ProfileEditForm()
+    return render(request, "profile/profile.html",{"profile_form": profile_form})
 
 
 @login_required
@@ -39,11 +48,6 @@ def edit_prifile(request, slug):
 
     if request.method == 'POST':
         if profile_form.is_valid():
-            profile_form.slug = request.user
-            # regra, se alterar o nome no user_name o mesmo 
-            # vai ter que alterar algo no profile do user
-            profile.slug = (request.user)
-            profile.save()
             profile_form.save()
             redirect('account:profile-detail-view', slug)
     else:

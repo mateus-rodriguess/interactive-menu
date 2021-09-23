@@ -9,16 +9,18 @@
 
 {% block content %}
 
-     <div class="row">
-         <div class="col-md-4 offset-md-4">
-            <div class="card  auth-card mt-4">
-                <h1>Editar:{{request.user}}</h1>
-                <form method="POST">
-                    {{ profile_form|crispy }}
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ next }}">
-                    <p><input type="submit" value="Salvar"></p>
-                </form>
+       <div class="row ">
+        <div class="col-md-6 offset-md-3 mt-2 ">
+            <div class="card  auth-card">
+               <div class="card-body ">
+                    <h1>Editar:{{request.user}}</h1>
+                    <form method="POST" >
+                        {{ profile_form|crispy }}
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}">
+                        <p><input class="mt-2" type="submit" value="Salvar"></p>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

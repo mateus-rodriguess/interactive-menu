@@ -9,11 +9,10 @@
 
 <div class="row">
     <div class="col">
-        <h1>Seu lanches</h1>
+        <h1 class="text-white">Seu lanches</h1>
         <table class="table">
-            <thead class="black white-text">   
+            <thead class="black text-white">   
             <tr>
-                <th scope="col-3"></th>
                 <th scope="col">Produto</th>
                 <th scope="col">Quatidade</th>
                 <th scope="col">Remover</th>
@@ -21,17 +20,19 @@
             </tr>
             </thead>
             <tbody>
+            
             {% for item in cart %}
                 {% with product=item.product %}
                 <tr>
-             
                     <td>
                     <a href="{{ product.get_absolute_url }}">
                         <img class="img-fluid card-img-top" style="width: 300px;" src="{% if product.image %}{{ product.image.url }}
                         {% else %}{% static "img/feijãotropero.png" %}{% endif %}">
+                        <p class="">{{ product.name }}</p>
+                       
                     </a>
                     </td>
-                    <td>{{ product.name }}</td>
+               
                     <td>
                     <form action="{% url "cart:cart_add" product.id %}" method="post">
                         {{ item.update_quantity_form.quantity }}
@@ -42,18 +43,18 @@
                     </td>
                     <td>
                     <form action="{% url "cart:cart_remove" product.id %}" method="post">
-                        <input class="btn btn-danger" type="submit" value="Remove">
+                        <input class="btn btn-danger mt-4" type="submit" value="Remove">
                         {% csrf_token %}
                     </form>
                     </td>
-                    <td class="">R$ {{ item.total_price }}</td>
+                    <td class="text-white">R$ {{ item.total_price }}</td>
                 </tr>
                 {% endwith %}
             {% endfor %}
-            <tr class="">
+            <tr class="text-white">
                 <td>Total</td>
-                <td colspan="3"></td>
-                <td class="">R$ {{ cart.get_total_price }}</td>
+                <td colspan="2"></td>
+                <td class="text-white">R$ {{ cart.get_total_price }}</td>
             </tr>
             </tbody>
         </table>
