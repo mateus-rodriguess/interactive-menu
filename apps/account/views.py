@@ -42,10 +42,10 @@ def edit_prifile(request, slug):
             profile_form.slug = request.user
             # regra, se alterar o nome no user_name o mesmo 
             # vai ter que alterar algo no profile do user
-            profile.slug = str(request.user)
+            profile.slug = (request.user)
             profile.save()
             profile_form.save()
-  
+            redirect('account:profile-detail-view', slug)
     else:
         profile_form = ProfileEditForm()
     return render(request,'profile/edit.html',{'profile_form': profile_form})
