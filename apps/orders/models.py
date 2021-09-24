@@ -1,7 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
-
 from apps.menu.models import Product, Table
+from apps.account.models import User
 
 
 
@@ -13,7 +12,6 @@ STATUS_ORDER_CHOICES = (
 
 
 class Order(models.Model):
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     table = models.ForeignKey(Table, on_delete=models.PROTECT, blank=True, null=True)
 

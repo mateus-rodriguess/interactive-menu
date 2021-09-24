@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 
-from .forms import UserCreationFormCustom, ProfileEditForm
+from .forms import UserCreationForm, ProfileForm
 from .models import Profile
 
 
@@ -13,14 +13,11 @@ class CreateUser(generic.CreateView):
     """
     view that reder the template for user registration
     """
-
-    def get_queryset(self):
-        return self.request.user
-
-    form_class = UserCreationFormCustom
+    form_class = UserCreationForm
     template_name = 'registration/register.html'
+    
     # alterar o redirect
-    success_url = reverse_lazy('account:edit-profile')
+    success_url = reverse_lazy('menu:product_list')
 
 
 @login_required()
@@ -35,12 +32,12 @@ def ProfileDetailView(request, slug):
 def edit_prifile(request, slug):
 
     profile = Profile.objects.get(user=request.user)    
-    profile_form = ProfileEditForm(request.POST or None, request.FILES or None, instance=profile)
+    profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
 
     if request.method == 'POST':
         if profile_form.is_valid():
             profile_form.save()
-            redirect('account:login')
+            return redirect('menu:product_list')
     else:
-        profile_form = ProfileEditForm()
+        profile_form = ProfileForm()
     return render(request,'profile/edit.html',{'profile_form': profile_form})

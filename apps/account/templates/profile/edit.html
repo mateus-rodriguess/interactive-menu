@@ -18,9 +18,8 @@
                     <form method="POST" action="">
                         {% csrf_token %}
                         {{ profile_form|crispy }}
-                        <input type="hidden" name="next" value="{{ next }}">
                         <div class="justify-content-center">  
-                            <p><input class="mt-2 btn btn-primary" type="submit" value="Salvar"></p>
+                            <button type="submit" value="{{ next }}" class="btn btn-primary btn-block mt-2">Salvar</button>
                         </div>
                     </form>
                 </div>

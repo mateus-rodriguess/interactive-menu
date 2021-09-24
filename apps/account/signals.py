@@ -1,7 +1,6 @@
 from django.db.models.signals import post_save
-from django.contrib.auth.models import User
 
-from apps.account.models import Profile
+from apps.account.models import Profile, User
 
 
 def  create_profile(sender, instance, created, **kwargs):    
