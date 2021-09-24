@@ -29,25 +29,26 @@ class UserCreationFormCustom(UserCreationForm):
             user = User.objects.exclude(pk=self.instance.pk).get(username=username)
         except User.DoesNotExist:
             return username
-        raise forms.ValidationError(u'Username "%s" is already in use.' % username)
+        raise forms.ValidationError(f"Username {username} ja esta em uso.")
 
    
 class ProfileEditForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Nome...'}))
-    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Sobrenome...', }))
-    CPF = forms.CharField(max_length=11, widget=forms.TextInput(attrs={'placeholder': 'CPF...', }))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Sobrenome...','label':"Primeiro nome", }))
+    CPF = forms.CharField(max_length=11, widget=forms.TextInput(attrs={'placeholder': 'CPF...',}))
     
     class Meta:
         model = Profile
         fields = ('first_name', 'last_name', 'CPF')
 
-    # descomnetar esse codigo em produção
-    # def clean_CPF(self):
-    #     # validação de CPF
-    #     CPF = self.cleaned_data['CPF']
-    #     validate_cpf(CPF)
-    #     if Profile.objects.filter(CPF=CPF).exists():
-    #         raise ValidationError(f"O CPF {CPF} ja esta em uso")
-    #     return CPF
+    
+    #descomnetar esse codigo em produção
+    def clean_CPF(self):
+        # validação de CPF
+        CPF = self.cleaned_data['CPF']
+        validate_cpf(CPF)
+        if Profile.objects.exclude(CPF=CPF).exists():
+            raise ValidationError(f"O CPF {CPF} ja esta em uso")
+        return CPF
         
       

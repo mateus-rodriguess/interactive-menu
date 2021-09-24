@@ -4,42 +4,7 @@
 {% block title %}Perfil: {{request.user}}{% endblock %}
 
 {% block content %}
-<a class="navbar-brand" href="{% url 'account:edit-profile' request.user %}">
-  <h1>
-    <h3> {{request.user}}</h3>
-  </h1>
-</a>
-<div class="text-center">
-  <a href="" class="btn btn-default btn-primary mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch
-    Modal Register Form</a>
-</div>
-<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-
-          <form method="POST" action="{% url 'account:profile-detail-view' request.user %}">
-            {{ profile_form|crispy }}
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}">
-            <p><input class="mt-2" type="submit" value="Salvar"></p>
-          </form>
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <input type="hidden" name="next" value="{{ next }}">
-          <p><input class="mt-2 btn btn-primary" type="submit" value="Salvar"></p>
-        </div>
-      </div>
-    </div>
-  </div>
+<a class="navbar-brand" href="{% url 'account:edit-profile' request.user %}"> editar Perfil</a>
 
 
 

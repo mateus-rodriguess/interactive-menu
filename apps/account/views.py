@@ -20,7 +20,7 @@ class CreateUser(generic.CreateView):
     form_class = UserCreationFormCustom
     template_name = 'registration/register.html'
     # alterar o redirect
-    success_url = reverse_lazy('account:login')
+    success_url = reverse_lazy('account:edit-profile')
 
 
 @login_required()
@@ -28,16 +28,7 @@ def ProfileDetailView(request, slug):
     """
     user profile view
     """  
-    profile = Profile.objects.get(user=request.user)    
-    profile_form = ProfileEditForm(request.POST or None, request.FILES or None, instance=profile)
-
-    if request.method == 'POST':
-        if profile_form.is_valid():
-            profile_form.save()
-            redirect('account:profile-detail-view', slug)
-    else:
-        profile_form = ProfileEditForm()
-    return render(request, "profile/profile.html",{"profile_form": profile_form})
+    return render(request, "profile/profile.html")
 
 
 @login_required
@@ -49,7 +40,7 @@ def edit_prifile(request, slug):
     if request.method == 'POST':
         if profile_form.is_valid():
             profile_form.save()
-            redirect('account:profile-detail-view', slug)
+            redirect('account:login')
     else:
         profile_form = ProfileEditForm()
     return render(request,'profile/edit.html',{'profile_form': profile_form})
