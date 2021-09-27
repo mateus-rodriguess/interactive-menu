@@ -10,6 +10,7 @@ psycopg2-binary = "*"
 django-crispy-forms = "*"
 pillow = "*"
 django-cpf = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 autopep8 = "*"

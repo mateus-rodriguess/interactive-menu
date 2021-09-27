@@ -5,49 +5,54 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col">
-            <ul class="nav justify-content-center grey lighten-4">
-                <li {% if not category %} class="nav-item" {% endif %}>
-                    <a class="nav-link active" href="{% url "menu:product_list" %}">Todos</a>
-                </li>
-                {% for c in categories %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ c.get_absolute_url }}">{{c.name}}</a>
-                </li>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="nav justify-content-center grey lighten-4">
+                    <li {% if not category %} class="nav-item" {% endif %}>
+                        <a class="nav-link active" href="{% url "menu:product_list" %}">Todos</a>
+                    </li>
+                    {% for c in categories %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ c.get_absolute_url }}">{{c.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <h5 class="text-white">
+            {% if category %}
+            {{ category.name }}
+            {% else %}
+            Todos os produtos
+            {% endif %}
+        </h5>
+    
+        <div class="row">
+      
+            {% for product in products %}
+              
+                <div class="col-sm-6 card card-personal">
+                    <div class="view card-title d-flex justify-content-center">
+                        <a href="{{ product.get_absolute_url }}">
+                            <img class="img-fluid card-img-top"
+                                src=" {% if product.image %}{{ product.image.url }} {% else %} {% static " img/feijãotropero.png" %}
+                                {% endif %}">
+                        </a>
+                    </div>
+                    <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
+                        <h4 class="card-title white-text">{{ product.name }}</h4>
+                    </a>
+    
+                    {% if product.available %}
+                    <h5 class="card-title d-flex justify-content-center">
+                        R$ {{ product.price }} -<p class="text-success"> Disponível</p>
+                    </h5>
+                    {%endif%}
+                </div>
                 {% endfor %}
-            </ul>
+         
         </div>
     </div>
-    <h5 class="text-white">
-        {% if category %}
-        {{ category.name }}
-        {% else %}
-        Todos os produtos
-        {% endif %}
-    </h5>
-
-    <div class="row">
-        {% for product in products %}
-            <div class="col-sm-6 card card-personal ">
-                <div class="view card-title d-flex justify-content-center">
-                    <a href="{{ product.get_absolute_url }}">
-                        <img class="img-fluid card-img-top"
-                            src=" {% if product.image %}{{ product.image.url }} {% else %} {% static " img/feijãotropero.png" %}
-                            {% endif %}">
-                    </a>
-                </div>
-                <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
-                    <h4 class="card-title white-text">{{ product.name }}</h4>
-                </a>
-
-                {% if product.available %}
-                <h5 class="card-title d-flex justify-content-center">
-                    R$ {{ product.price }} <p class="text-success"> Disponível</p>
-                </h5>
-                {%endif%}
-            </div>
-            {% endfor %}
-    </div>
-  
+    
 {% endblock %}

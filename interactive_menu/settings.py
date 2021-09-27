@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'crispy_forms',
     'cpf_field',
+    'debug_toolbar',
+
     'apps.account.apps.AccountConfig',
     'apps.menu.apps.MenuConfig',
     'apps.core_config.apps.CoreConfigConfig',
@@ -56,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+ 
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'interactive_menu.urls'
@@ -159,3 +164,10 @@ CART_SESSION_ID = 'cart'
 
 # para produção
 # python manage.py collectstatic
+
+# debug
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]

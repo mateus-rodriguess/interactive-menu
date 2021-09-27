@@ -30,8 +30,14 @@ def ProfileDetailView(request, slug):
 
 @login_required
 def edit_prifile(request, slug):
+    print(slug)
+    print(request.user.pk)
+    try:
+        profile = Profile.objects.get(user=request.user)    
+    except Exception as e:
+        print(e)
+        return render(request,'profile/not_found.html')
 
-    profile = Profile.objects.get(user=request.user)    
     profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
 
     if request.method == 'POST':

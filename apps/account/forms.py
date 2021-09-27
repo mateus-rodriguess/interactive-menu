@@ -50,7 +50,7 @@ class UserCreationForm(UserCreationForm):
 
 class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Nome...'}))
-    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Sobrenome...','label':"Primeiro nome", }))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Sobrenome...',}))
     
     class Meta:
         model = Profile

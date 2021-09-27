@@ -15,9 +15,6 @@ p {
 }
 
 img{
-    width: 300;
+    width: 400;
 }
 
-.nav a.white-text:hover {
-    color: #e0e0e0!important;
-}

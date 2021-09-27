@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-
 from .models import Profile, User
 from .forms import UserCreationForm, UserChangeForm, ProfileForm
 # Register your models here.
@@ -19,4 +18,7 @@ class UserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     model = User
-  
+    fieldsets = UserAdmin.fieldsets + (
+        ("CPF", {"fields": ("CPF",)}),
+    )
+    
