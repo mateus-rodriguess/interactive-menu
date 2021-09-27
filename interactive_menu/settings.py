@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.2','localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.2', '192.168.0.195', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -169,5 +169,6 @@ CART_SESSION_ID = 'cart'
 INTERNAL_IPS = [
     # ...
     '127.0.0.1',
+    '192.168.0.1',
     # ...
 ]

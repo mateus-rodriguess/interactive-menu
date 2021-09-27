@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container p-0">
         <div class="row">
             <div class="col">
                 <ul class="nav justify-content-center grey lighten-4">
@@ -29,13 +29,11 @@
         </h5>
     
         <div class="row">
-      
             {% for product in products %}
-              
                 <div class="col-sm-6 card card-personal">
                     <div class="view card-title d-flex justify-content-center">
                         <a href="{{ product.get_absolute_url }}">
-                            <img class="img-fluid card-img-top"
+                            <img class="img-fluid product-img"
                                 src=" {% if product.image %}{{ product.image.url }} {% else %} {% static " img/feijãotropero.png" %}
                                 {% endif %}">
                         </a>
@@ -51,7 +49,6 @@
                     {%endif%}
                 </div>
                 {% endfor %}
-         
         </div>
     </div>
     

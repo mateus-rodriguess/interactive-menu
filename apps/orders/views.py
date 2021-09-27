@@ -2,9 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from apps.cart.cart import Cart
-from apps.account.models import Profile
+from apps.account.models import Profile, User
 from .forms import OrderCreateForm
-from .models import OrderItem
+from .models import OrderItem, Order
 
 # Create your views here.
 
@@ -32,10 +32,20 @@ def order_create(request):
             # launch asynchronous task
            
             return render(request,
-                          'orders/order/created.html',
-                          {'order': order})
+                           "orders/order/list.html", {"order": order})
     else:
         form = OrderCreateForm()
     return render(request,
                   'orders/order/create.html',
                   {'cart': cart, 'form': form})
+
+
+def order_list(request):
+    profile = Profile.objects.get(user=request.user)
+    order_dict = []
+    order = Order.objects.filter(user=request.user).first()
+    orderitem = OrderItem.objects.filter(order=order).first()
+   
+    order_dict.append({"order":order.note, "orderitem": orderitem.product})
+
+    return order_dict

@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import CreateUser, ProfileDetailView, edit_prifile
+from .views import CreateUser, ProfileDetailView, edit_profile
 
 app_name = 'account'
 # urls
@@ -11,5 +11,5 @@ urlpatterns = [
    path('password_reset/', auth_views.PasswordResetView.as_view(), name="password_reset"),
 
    path("<slug:slug>/", ProfileDetailView, name="profile-detail-view" ),
-   path("<slug:slug>/edit/", edit_prifile, name="edit-profile")
+   path("<slug:slug>/edit/", edit_profile, name="edit-profile")
 ]

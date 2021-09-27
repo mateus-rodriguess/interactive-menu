@@ -4,8 +4,52 @@
 {% block title %}Perfil: {{request.user}}{% endblock %}
 
 {% block content %}
-<a class="navbar-brand" href="{% url 'account:edit-profile' request.user %}"> editar Perfil</a>
+<div class="container p-0">
+  <div class="row gutters">
+    
+    <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+      
+      <div class="card h-100">
+        <div class="card-header">
+          <h5 class="text-primary ">Profile</h5>
+        </div>
+        <div class="card-body">
+          <div class="account-settings">
+            <div class="user-profile">
+              <h5 class="mt-0">{{request.user}}</h5>
+              <div class="user-avatar">
+                <img class="img-fluid card-img-top imgproduct"
+                src="{% static 'img/ze.png'  %}">
+              </div>
+            </div>
+            <div class="mt-2">
+              <h6>Nome completo: {{profile.first_name}} {{profile.last_name}}</h6>
+              <a href="{% url 'account:edit-profile' profile.user %}"> <button class="btn btn-primary">Editar</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+        <div class="card-header">
+          <h5 class="text-primary">Pedidos</h5>
+        </div>
+        <div class="card-body">
+          <div class="row gutters">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <p class="text-primary">Ultimo pedido: {{product}}</p>
+              <p>
+               Detalhes: {{note}}
+              </p>
+              <h5><a href="{% url 'orders:order_list'%}">Todos os pedidos</a></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 
-
-  {% endblock %}
+{% endblock %}
