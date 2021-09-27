@@ -15,8 +15,8 @@ body{
     background: #080a11;
 }
 .product-img{
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
 }
 .account-settings .user-profile {
     margin: 0 0 1rem 0;
@@ -60,5 +60,5 @@ body{
     border-radius: 2px;
     font-size: .825rem;
     background: #1A233A;
-    color: #6d86b8;
+    color: #ffffff;
 }

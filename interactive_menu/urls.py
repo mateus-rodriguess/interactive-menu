@@ -30,7 +30,7 @@ urlpatterns = [
     path('cart/', include('apps.cart.urls', namespace='cart')),
     path('', include('apps.menu.urls', namespace='menu')),
     path('orders/', include('apps.orders.urls', namespace='orders')),
-    #path('__debug__/', include(debug_toolbar.urls)),
+  
    
 ]
 if settings.DEBUG:

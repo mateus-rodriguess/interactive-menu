@@ -44,6 +44,9 @@ def edit_profile(request, slug):
     except Exception as e:
         print(e)
         return render(request,'profile/not_found.html')
+   
+    if  not request.user.username == slug:
+        return redirect("account:login")
 
     profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
 

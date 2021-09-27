@@ -14,8 +14,9 @@
                     <h4 class="card-title text-center">Login</h4>
                     <form method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="next" value="{{ next }}">
+                       
                         {{ form|crispy }}
+                        <input type="hidden" name="next" value="{{ next }}">
                         <button type="submit" class="btn btn-primary btn-block mt-2">Entrar</button>
                     </form>
                     <p1 class="change-form-p">Quer criar uma conta? <a href="{% url 'account:register'%}">Clique aqui!</a></p>

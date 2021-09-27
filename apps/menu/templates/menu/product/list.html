@@ -30,10 +30,10 @@
     
         <div class="row">
             {% for product in products %}
-                <div class="col-sm-6 card card-personal">
+                <div class="col-sm-6 card card-personal mt-0">
                     <div class="view card-title d-flex justify-content-center">
                         <a href="{{ product.get_absolute_url }}">
-                            <img class="img-fluid product-img"
+                            <img class="img-fluid product-img mt-2"
                                 src=" {% if product.image %}{{ product.image.url }} {% else %} {% static " img/feijãotropero.png" %}
                                 {% endif %}">
                         </a>
