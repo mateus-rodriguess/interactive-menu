@@ -4,9 +4,9 @@ from django.urls import reverse
 
 
 class Table(models.Model):
-    number = models.IntegerField(unique=True)
+    number = models.IntegerField(unique=True, default=1)
     description = models.TextField(blank=True)
-    max = models.IntegerField(null=True, blank=True)
+    max = models.IntegerField(null=True, blank=True, default=2)
     # mais fields
     class Meta:
         verbose_name = ("table")

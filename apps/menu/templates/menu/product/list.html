@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container p-0">
+    <div class="container p-0 ">
         <div class="row">
-            <div class="col">
+            <div class="col  p-2">
                 <ul class="nav justify-content-center grey lighten-4">
                     <li {% if not category %} class="nav-item" {% endif %}>
                         <a class="nav-link active" href="{% url "menu:product_list" %}">Todos</a>
@@ -30,25 +30,38 @@
     
         <div class="row">
             {% for product in products %}
-                <div class="col-sm-6 card card-personal mt-0">
-                    <div class="view card-title d-flex justify-content-center">
+            
+                <div class="col-sm-6 card booking-card">
+                     <!-- Card image -->
+                    <div class="view overlay">
                         <a href="{{ product.get_absolute_url }}">
-                            <img class="img-fluid product-img mt-2"
+                            <img class="card-img-top img-fluid"
                                 src=" {% if product.image %}{{ product.image.url }} {% else %} {% static " img/feijãotropero.png" %}
                                 {% endif %}">
+                            <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
-                    <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
-                        <h4 class="card-title white-text">{{ product.name }}</h4>
-                    </a>
-    
-                    {% if product.available %}
-                    <h5 class="card-title d-flex justify-content-center">
-                        R$ {{ product.price }} -<p class="text-success"> Disponível</p>
-                    </h5>
-                    {%endif%}
+                    <div class="card-body">
+                        <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
+                            <h4 class="card-title font-weight-bold">{{ product.name }}</h4>
+                        </a>
+                        
+                        {% if product.available %}
+                        <h5 class="mb-2">
+                            R$ {{ product.price }} -<p class="text-success "> Disponível</p>
+                        </h5>
+                        {%endif%}
+                        {% if product.description %}
+                           <p class="card-text"> {{ product.description|truncatewords:30|linebreaks}} </p>
+                        {%endif%}
+                        <a class="btn btn-outline-white btn-md waves-effect card-meta" href="{{ product.get_absolute_url }}">
+                            <h5 class="">Adicionar</h5>
+                        </a>
+                    </div>
+                   
                 </div>
-                {% endfor %}
+            
+            {% endfor %}
         </div>
     </div>
     

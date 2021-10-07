@@ -1,29 +1,34 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block title %}
-    Compra
+Compra
 {% endblock %}
 
 {% block content %}
-  <div class="row text-white">
-        <div class="col-md-12">
-            <h1>Compra</h1>
-            <div class="">
-                <ul class="nav nav-tabs">
-                    {% for item in cart %}
-                <li class="nav-item">
-                    {{ item.quantity }}x {{ item.product.name }}
-                    <span>R$ {{ item.total_price }}</span>
-                </li>
-                {% endfor %}
-                </ul>
-                <p>Total: ${{ cart.get_total_price }}</p>
+<div class="row text-white">
+    <div class="col-md-6 offset-md-3">
+        <div class="card  auth-card mt-2">
+
+            <div class="card-body ">
+                <h1>Compra</h1>
+                <div class="">
+                    <ul class="nav nav-tabs">
+                        {% for item in cart %}
+                        <li class="nav-item">
+                            {{ item.quantity }}x {{ item.product.name }}
+                            <span>R$ {{ item.total_price }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <p>Total: ${{ cart.get_total_price }}</p>
+                </div>
+                <form method="post" class="form">
+                    {{ form|crispy }}
+                    <p><input type="submit" value="comprar" class="btn btn-primary mt-1"></p>
+                    {% csrf_token %}
+                </form>
             </div>
-            <form method="post" class="form">
-             {{ form|crispy }}
-            <p><input type="submit" value="comprar" class="btn btn-primary mt-1"></p>
-            {% csrf_token %}
-            </form>
         </div>
     </div>
+</div>
 {% endblock %}
