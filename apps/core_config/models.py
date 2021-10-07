@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.fields import CharField
+from django.urls import reverse
+from apps.account.models import User, Profile
 # Create your models here.
 
 
@@ -10,3 +13,32 @@ class Config(models.Model):
     def __str__(self):
         return self.name
 
+
+STATUS_ORDER_CHOICES = (
+    ("Funcionario", "Funcionario"),
+    ("Gerente", "Gerente"),
+    ("garçom", "garçom"),
+)
+
+
+class Employee(models.Model):
+    # ta em teste
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+    member = models.CharField(choices=STATUS_ORDER_CHOICES,blank=True, null=True, max_length=50)
+    
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return str(self.profile)
+    
+    class Meta:
+        ordering = ('profile',)
+        verbose_name = "employee"
+        verbose_name_plural = "employees"
+    
+
+    def get_absolute_url(self):
+        return reverse("employee:employee-detail-view", kwargs={"slug": self.profile})

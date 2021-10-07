@@ -7,7 +7,7 @@ from .forms import UserCreationForm, UserChangeForm, ProfileForm
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name','user']
+    list_display = ['first_name', 'last_name','user', 'active']
     form = ProfileForm
     add_form = ProfileForm
     model = Profile

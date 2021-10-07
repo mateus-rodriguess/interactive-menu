@@ -9,12 +9,16 @@ a:visited {
 p {
     font-size: 12;
 }
-
+a{
+    font-size: 12;
+}
 body{
-    color: rgb(255, 255, 255);
+    color:white;
     background: #000000;
 }
-.product-img{
-    width: 300px;
-    height: 300px;
+
+.back-ground{
+    background: #000000;
+    color: white;
+    
 }

@@ -3,16 +3,16 @@ from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from cpf_field.models import CPFField
 
-
 class User(AbstractUser):
     CPF = CPFField('cpf')
-
+    
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='Profile') 
-    first_name = models.CharField(max_length=100, blank=True, unique=False, default="First name")
-    last_name = models.CharField(max_length=100, blank=True,  unique=False, default="Last name")    
+    first_name = models.CharField(max_length=100, blank=True, unique=False, default="Nome")
+    last_name = models.CharField(max_length=100, blank=True,  unique=False, default="Sobrenome")    
     
+    active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

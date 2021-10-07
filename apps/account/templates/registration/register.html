@@ -5,9 +5,10 @@
 {% endblock navbar %}
 
 {% block content %}
-    <div class="row ">
+    <div class="row back-ground">
         <div class="col-md-6 offset-md-3 mt-2 ">
-            <div class="card  auth-card">
+            <div class="card  auth-card back-ground">
+                <h4 class="card-title text-center">Register</h4>
                 <div class="card-body">
                     <form method="POST">
                         {% csrf_token %}
@@ -17,7 +18,7 @@
 
                         <button type="submit" class="btn btn-primary btn-block mt-2">Entrar</button>
                     </form>
-                    <p class="change-form-p">Quer ter um login? <a href="{% url 'account:login'%}">Clique aqui!</a></p>
+                    <p class="change-form-p">Ja ter um login? <a href="{% url 'account:login'%}">Clique aqui!</a></p>
                 </div>
             </div>
         </div>

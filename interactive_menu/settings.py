@@ -15,9 +15,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.2', '192.168.0.195', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ["6d2d-201-182-218-254.ngrok.io", '192.168.0.2', '192.168.0.195', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -140,9 +140,9 @@ AUTH_USER_MODEL = 'account.User'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    'static',
+    'static',"staticfiles",
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

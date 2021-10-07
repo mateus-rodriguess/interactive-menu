@@ -9,23 +9,23 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-md-6  card card-personal">
+            <div class="col-md-6  card card-personal  bg-dark">
                 <img class="img-fluid " src="{% if product.image %}{{ product.image.url }}{% else %}
-                        {% static " img/feijãotropero.png" %}{% endif %}">
+                        {% static " img/ze.png" %}{% endif %}">
             </div>
         
-            <div class="col-md-6 card card-personal">
-                <h1>{{ product.name }}</h1>
+            <div class="col-md-6 card card-personal  bg-dark">
+                <h3>{{ product.name }}</h3>
                 <a class=" " href="{{ product.category.get_absolute_url }}">
                     {{ product.category }}
                 </a>
                 <h5 class=""> R$ {{ product.price }}</h5>
-                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                <form action="{% url "cart:cart_add" product.id %}" method="POST">
                     <div class="form-group">
                         {{ cart_product_form|crispy }}
                         {% csrf_token %}
                     </div>
-                    <input type="submit" class="form-control" value="Adicionar {{product.name}}s">
+                    <input type="submit" class="form-control" value="Adicionar {{product.name}}">
                 </form>
             
                 <div class="col-md-12" >

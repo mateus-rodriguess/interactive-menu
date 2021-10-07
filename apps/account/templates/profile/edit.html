@@ -3,31 +3,26 @@
 {% load crispy_forms_tags %}
 {% block title %}Perfil: {{request.user}}{% endblock %}
 
-{% block navbar %}
-{% endblock navbar %}
-
-
 {% block content %}
-<div class="row">
-    <div class="col-md-4 offset-md-4">
-        <div class="card  auth-card">
-
-            <div class="card-body ">
-                <div class="border border-light text-dark">
-                    <h3 class="h4">Bem vindo {{request.user}}</h3>
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        {{ profile_form|crispy }}
-                        <div class="justify-content-center">  
-                            <button type="submit" value="{{ next }}" class="btn btn-primary btn-block mt-2">Salvar</button>
-                        </div>
-                    </form>
+    <div class="row">
+        <div class="col-md-4 offset-md-4 ">
+            <div class="card  auth-card back-ground">
+                <div class="card-body ">
+                    <div class="">
+                        <h3 class="h4">Ola {{request.user}}</h3>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            {{ profile_form|crispy }}
+                            <div class="justify-content-center">
+                                <button type="submit" value="{{ next }}" class="btn btn-success mr-1">Salvar</button>
+                                <a href="{% url 'account:profile-detail-view' request.user %}"
+                                    class="btn btn-primary">Voltar</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
 
 {% endblock %}

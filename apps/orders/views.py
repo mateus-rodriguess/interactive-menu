@@ -32,7 +32,7 @@ def order_create(request):
             # launch asynchronous task
            
             return render(request,
-                           "orders/order/list.html", {"order": order})
+                           "orders/list.html", {"order": order})
     else:
         form = OrderCreateForm()
     return render(request,
@@ -49,3 +49,12 @@ def order_list(request):
     order_dict.append({"order":order.note, "orderitem": orderitem.product})
 
     return order_dict
+
+
+def list(request):
+    order = Order.objects.filter(user=request.user).last()
+    orderitem = OrderItem.objects.filter(order=order)
+    print(orderitem[0])
+    for item in orderitem:
+        print(item.product)
+    return render(request, "orders/list.html", {"orderitem": orderitem})
