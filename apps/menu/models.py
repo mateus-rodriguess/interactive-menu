@@ -1,6 +1,10 @@
 from django.db import models
 from django.urls import reverse
-# Create your models here.
+
+
+class AvailableManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(available=True)
 
 
 class Table(models.Model):
@@ -49,6 +53,9 @@ class Product(models.Model):
     
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    available_mamager = AvailableManager()
     
     class Meta:
         ordering = ('name',)

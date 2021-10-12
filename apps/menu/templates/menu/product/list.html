@@ -52,7 +52,7 @@
                 </h5>
                 {%endif%}
                 {% if product.description %}
-                <p class="card-text"> {{ product.description|truncatewords:18|linebreaks}} </p>
+                <p class="card-text"> {{ product.description|truncatewords:14|linebreaks}} </p>
                 {%endif%}
                 <a class="" href="{{ product.get_absolute_url }}">
                     <input type="button" class="btn btn-primary btn-block" value="Adicionar">
