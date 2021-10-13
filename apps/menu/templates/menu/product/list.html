@@ -46,22 +46,18 @@
                     <h4 class="card-title font-weight-bold">{{ product.name }}</h4>
                 </a>
 
-                {% if product.available %}
                 <h5 class="mb-2">
-                    R$ {{ product.price }} -<h6 class="text-success "> Disponível</h6>
+                    R$ {{ product.price }} -<h6 class="text-success ">Disponível</h6>
                 </h5>
-                {%endif%}
+            
                 {% if product.description %}
                 <p class="card-text"> {{ product.description|truncatewords:14|linebreaks}} </p>
                 {%endif%}
                 <a class="" href="{{ product.get_absolute_url }}">
                     <input type="button" class="btn btn-primary btn-block" value="Adicionar">
-
                 </a>
             </div>
-
         </div>
-
         {% endfor %}
     </div>
 </div>

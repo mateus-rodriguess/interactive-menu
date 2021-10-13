@@ -1,36 +1,33 @@
-from django.contrib.postgres import search
-from django.db.models import query
-from django.shortcuts import get_object_or_404, render
 from django.contrib.postgres.search import SearchVector
+from django.shortcuts import get_object_or_404, render
 
-from .models import Category, Product
 from apps.cart.forms import CartAddProductForm
+
 from .forms import SearchForm
+from .models import Category, Product
 
 
 def product_list(request, category_slug=None):
     category = None
-  
     query = None
     form = SearchForm()
     categories = Category.objects.all()
-    products = Product.objects.filter(available=True)
+    products = Product.available_mamager.all()
 
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
-    
+
     if "search_form" in request.GET:
         form = SearchForm(request.GET)
-       
         if form.is_valid():
             query = form.cleaned_data['query']
             products = Product.available_mamager.annotate(
                 search=SearchVector('name', 'description')).filter(search=query)
-    
-    return render(request,'menu/product/list.html', {'category': category,
-                   'categories': categories,
-                   'products': products, 'form': form})
+
+    return render(request, 'menu/product/list.html', {'category': category,
+                                                      'categories': categories,
+                                                      'products': products, 'form': form})
 
 
 def product_detail(request, id, slug):
@@ -42,5 +39,3 @@ def product_detail(request, id, slug):
                   'menu/product/detail.html',
                   {'product': product,
                    'cart_product_form': cart_product_form})
-
-
