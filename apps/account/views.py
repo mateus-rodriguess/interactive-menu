@@ -29,11 +29,11 @@ def ProfileDetailView(request, slug):
     """  
     profile = Profile.objects.get(user=request.user)
     orders = order_list(request)
-
-    note = orders[0]['order']
-    product = orders[0]['orderitem']
- 
-    return render(request, "profile/profile.html", {"profile": profile, 'note': note, "product": product})
+    if orders:
+        note = orders[0]['order']
+        product = orders[0]['orderitem']
+        return render(request, "profile/profile.html", {"profile": profile, 'note': note, "product": product})
+    return render(request, "profile/profile.html",{"profile": profile})
 
 
 @login_required

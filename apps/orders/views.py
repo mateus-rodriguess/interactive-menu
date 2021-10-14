@@ -43,10 +43,11 @@ def order_create(request):
 def order_list(request):
     profile = Profile.objects.get(user=request.user)
     order_dict = []
+
     order = Order.objects.filter(user=request.user).first()
     orderitem = OrderItem.objects.filter(order=order).first()
-   
-    order_dict.append({"order":order.note, "orderitem": orderitem.product})
+    if order and orderitem:
+        order_dict.append({"order":order.note, "orderitem": orderitem.product})
 
     return order_dict
 

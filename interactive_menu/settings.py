@@ -146,7 +146,11 @@ STATICFILES_DIRS = [
 #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
+# possivel erro de [Errno 13] Permission denied: 'media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# teste de [Errno 13] Permission denied: 'media/' 
+#MEDIA_ROOT = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
