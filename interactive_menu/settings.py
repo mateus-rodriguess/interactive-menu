@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'interactive_menu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'interactive_menu',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'db',
