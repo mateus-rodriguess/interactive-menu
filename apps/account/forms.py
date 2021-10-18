@@ -13,7 +13,7 @@ class UserChangeForm(UserChangeForm):
         fields = '__all__'
 
 class UserCreationForm(UserCreationForm):
-    email = forms.EmailField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'Email...', }))
+    email = forms.EmailField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'Email...',}))
     username = forms.CharField(min_length=6, max_length=24,
                                widget=forms.TextInput(attrs={'placeholder': 'Username...'}))
     CPF = forms.CharField(max_length=11, widget=forms.TextInput(attrs={'placeholder': 'CPF...',}))
@@ -33,7 +33,7 @@ class UserCreationForm(UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data['username']
         try:
-            user = User.objects.exclude(pk=self.instance.pk).get(username=username)
+            User.objects.exclude(pk=self.instance.pk).get(username=username)
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(f"Username {username} ja esta em uso.")
@@ -49,8 +49,8 @@ class UserCreationForm(UserCreationForm):
    
 
 class ProfileForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Nome...',}))
-    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Sobrenome...',}))
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Nome...',}), label="Primeiro nome")
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Sobrenome...',}), label="Sobrenome")
     
     class Meta:
         model = Profile

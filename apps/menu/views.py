@@ -10,6 +10,7 @@ from .models import Category, Product
 def product_list(request, category_slug=None):
     category = None
     query = None
+    
     form = SearchForm()
     categories = Category.objects.all()
     products = Product.available_mamager.all()

@@ -9,12 +9,12 @@ _______________________________________________
 - [x] Categoria de produtos;
 - [x] Carinho de compra;
 - [x] Sistema de registo;
-    - [ ] Perfil do usuario; 
+    - [x] Perfil do usuario; 
 - [x] Compras;
 - [ ] Gerenciamento de estoque;
-- [ ] ADM;
+- [x] ADM;
 - [ ] Layout final;
-
+- [x] Conteiner docker
 
 
  # Como instalar

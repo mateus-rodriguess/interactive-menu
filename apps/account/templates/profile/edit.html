@@ -13,7 +13,7 @@
                         <form method="POST" action="">
                             {% csrf_token %}
                             {{ profile_form|crispy }}
-                            <div class="justify-content-center">
+                            <div class="justify-content-center text-right">
                                 <button type="submit" value="{{ next }}" class="btn btn-success mr-1">Salvar</button>
                                 <a href="{% url 'account:profile-detail-view' request.user %}"
                                     class="btn btn-primary">Voltar</a>
