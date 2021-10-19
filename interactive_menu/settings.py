@@ -142,11 +142,11 @@ AUTH_USER_MODEL = 'account.User'
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+#STATIC_URL = '/staticfiles/'
+STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = [
-    'static',"staticfiles",
+    os.path.join(BASE_DIR, 'static')
 ]
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 MEDIA_URL = '/media/'
 # possivel erro de [Errno 13] Permission denied: 'media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
