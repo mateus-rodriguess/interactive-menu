@@ -41,3 +41,20 @@ metodos de pagamento na ordem do pedido
 observações do pedido, na ordem do pedido.
 cadastro, nome, cpf, email, senha, user do django
 como fazer QR code
+
+>>>>> path 3
+Projeto picanha/sistema/gerenciamento de itens
+
+registro de itens na gerencia de estoque
+dedução dos itens a partir de que o item for fabricado e não quando for vendido
+registro de receitas
+cadastro de itens nas receitas
+valores dos itens podem ser registrados em poções, gramas/quilos/ quantidade numérica
+
+checkbox para garçom de remoção/adição de itens 
+caixa de texto de observações para cliente
+
+adição de valores ganhos a partir da venda do produto
+*dedução de valores gastos a partir do uso dos itens
+
+(*) = algo a mais

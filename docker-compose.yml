@@ -20,3 +20,8 @@ services:
 
 volumes:
   postgres_data:
+
+# docker-compose run web python manage.py makemigrations
+# docker-compose run web python manage.py migrate
+# docker-compose run web python manage.py createsuperuser
+# docker exec -it devops_web_1 bash
