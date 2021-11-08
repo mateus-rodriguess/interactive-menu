@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from apps.inventory.models import Item
 
 class AvailableManager(models.Manager):
     def get_queryset(self):
@@ -40,8 +40,6 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products',
                                  on_delete=models.CASCADE)
-    # vou ver depois como vai ficar isso
-    #table = models.ForeignKey(Table,related_name='tables', on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
