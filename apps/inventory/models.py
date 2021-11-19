@@ -1,6 +1,27 @@
 from django.db import models
 from django.urls import reverse
-# Create your models here.
+
+
+class Revenue(models.Model):
+    name = models.CharField(max_length=140, unique=True, db_index=True)
+    slug = models.SlugField(max_length=140, db_index=True)
+    description = models.TextField(blank=True, null=True)
+    pattern = models.BooleanField(default=True)
+
+    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = "revenue"
+        verbose_name_plural = "revenues"
+
+    def __str__(self):
+        return f"{self.name} - " + "Padrao" if self.pattern == True else  "Modificada"
+
+    def get_absolute_url(self):
+        return reverse("revenue_detail", kwargs={"pk": self.pk})
+
 
 STATUS_ITEM_CHOICES = (
     ("OK", "OK"),
@@ -8,16 +29,15 @@ STATUS_ITEM_CHOICES = (
     ("OK", "OK"),
 )
 
+
 class Item(models.Model):
-    name = models.CharField(max_length=140, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    name = models.CharField(max_length=140, unique=True, db_index=True)
+    slug = models.SlugField(max_length=140, db_index=True)
     description = models.TextField(blank=True, null=True)
-    
-    quantity = models.PositiveIntegerField(default=1)
-    potions = models.FloatField(blank=True, default=0, null=True)
-    kilos = models.FloatField(blank=True, default=0, null=True)
-    status = models.CharField(blank=True, choices=STATUS_ITEM_CHOICES, max_length=3, null=True)
-    
+
+    status = models.CharField(blank=True, choices=STATUS_ITEM_CHOICES,
+                              max_length=3, null=True)
+
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -25,9 +45,53 @@ class Item(models.Model):
         ordering = ('name',)
         verbose_name = "item"
         verbose_name_plural = "items"
-
+   
     def __str__(self):
-        return self.name
+        return f"{self.name} - QT: --"
 
     def get_absolute_url(self):
         return reverse("item_detail", kwargs={"pk": self.pk})
+
+
+STATUS_ITEM_STOCK_CHOICES = (
+    ("OK", "OK"),
+    ("Ok", "OK"),
+    ("OK", "OK"),
+)
+
+
+class ItemStock(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    potions = models.FloatField(blank=True, default=0, null=True)
+    kilos = models.FloatField(blank=True, default=0, null=True)
+    status = models.CharField(blank=True, choices=STATUS_ITEM_STOCK_CHOICES,
+                              max_length=3, null=True)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('pk',)
+        verbose_name = "item stock"
+        verbose_name_plural = "item stocks"
+
+    def __str__(self):
+        return f"{self.item} - QT: {self.quantity}"
+
+    def get_absolute_url(self):
+        return reverse("item_stock_detail", kwargs={"pk": self.pk})
+
+
+class ItemRevenue(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    revenue = models.ForeignKey(Revenue, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    potions = models.FloatField(blank=True, default=0, null=True)
+    kilos = models.FloatField(blank=True, default=0, null=True)
+
+    class Meta:
+        ordering = ('pk',)
+        
+    def __str__(self):
+        return f"{self.item} - Receita: {self.revenue}"

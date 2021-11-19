@@ -22,7 +22,6 @@ class UserCreationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2', 'CPF']
       
-
     def clean_email(self):
         ValidationEmail = self.cleaned_data['email']
 
@@ -57,6 +56,9 @@ class ProfileForm(forms.ModelForm):
         fields = ('first_name', 'last_name')
 
     
+class UserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = "__all__"
     
-        
-      

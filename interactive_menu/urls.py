@@ -24,6 +24,7 @@ admin.site.site_header = "Administração"
 admin.site.site_title = "ADM"
 admin.site.index_title = "Bem vindo"
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('apps.account.urls',  namespace='accounts')),

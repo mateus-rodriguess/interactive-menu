@@ -7,37 +7,46 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6  card card-personal  back-ground">
-                <img class="img-fluid " src="{% if product.image %}{{ product.image.url }}{% else %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6  card card-personal  back-ground">
+            <img class="img-fluid " src="{% if product.image %}{{ product.image.url }}{% else %}
                         {% static " img/ze.png" %}{% endif %}">
-            </div>
-        
-            <div class="col-md-6 card card-personal  back-ground">
-                <h3>{{ product.name }}</h3>
-                <a class=" " href="{{ product.category.get_absolute_url }}">
-                    {{ product.category }}
-                </a>
-                <h5 class=""> R$ {{ product.price }}</h5>
-                <form action="{% url "cart:cart_add" product.id %}" method="POST">
-                    <div class="form-group">
-                        {{ cart_product_form|crispy }}
-                        {% csrf_token %}
-                    </div>
-                    <input type="submit" class="form-control" value="Adicionar {{product.name}}">
-                </form>
-            
-                <div class="col-md-12" >
-                    <div class="p-1">
-                        <p>
-                            {{ product.description|linebreaks }}
-                        </p>
-                    </div>
-                 
-                </div>
-            </div>
-        
         </div>
+
+        <div class="col-md-6 card card-personal  back-ground">
+            <h3>{{ product.name }}</h3>
+            <a class=" " href="{{ product.category.get_absolute_url }}">
+                {{ product.category }}
+            </a>
+            <h5 class=""> R$ {{ product.price }}</h5>
+            <form action="{% url "cart:cart_add" product.id %}" method="POST">
+                <div class="form-group">
+                    {{ cart_product_form|crispy }}
+                    {% csrf_token %}
+                </div>
+                <input type="submit" class="form-control" value="Adicionar {{product.name}}">
+            </form>
+
+            <div class="col-md-12">
+                <div class="p-1">
+                    <p>
+                        {{ product.description|linebreaks }}
+                    </p>
+                </div>
+                <div class="p-1">
+                    <h6>Receita: {{revenue}}</h6>
+                    <p>
+                        {% for item in item_revenue %}
+                        {{item.item}} quantidade {{item.quantity}}
+                        <br>
+                        {% endfor %}
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
     </div>
+</div>
 {% endblock %}

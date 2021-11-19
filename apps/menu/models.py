@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from apps.inventory.models import Item
+from apps.inventory.models import Revenue
 
 class AvailableManager(models.Manager):
     def get_queryset(self):
@@ -43,7 +43,7 @@ class Product(models.Model):
 
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
-    # colocar por categoria depois
+
     image = models.ImageField(
         upload_to=f'products/images/%Y/%m/%d', blank=True)
 
@@ -53,7 +53,8 @@ class Product(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    revenue = models.ForeignKey(Revenue, on_delete=models.PROTECT)
+   
     objects = models.Manager()
     available_mamager = AvailableManager()
 

@@ -1,8 +1,6 @@
 from django.db import models
-from django.db.models.fields import CharField
 from django.urls import reverse
-from apps.account.models import User, Profile
-# Create your models here.
+from apps.account.models import Profile
 
 
 class Config(models.Model):
@@ -22,7 +20,6 @@ STATUS_ORDER_CHOICES = (
 
 
 class Employee(models.Model):
-    # ta em teste
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     member = models.CharField(choices=STATUS_ORDER_CHOICES,blank=True, null=True, max_length=50)
@@ -36,8 +33,8 @@ class Employee(models.Model):
     
     class Meta:
         ordering = ('profile',)
-        verbose_name = "employee"
-        verbose_name_plural = "employees"
+        verbose_name = "employe"
+        verbose_name_plural = "employes"
     
 
     def get_absolute_url(self):
