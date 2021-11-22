@@ -10,5 +10,5 @@ def name_site():
    
     if config:
         return config.name
-    return "Nome - longo"
+    return "Restaurante Topzão"
     

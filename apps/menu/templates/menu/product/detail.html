@@ -9,44 +9,54 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6  card card-personal  back-ground">
+        <div class="col-md-6 mb-3 p-2 card card-personal back-ground">
             <img class="img-fluid " src="{% if product.image %}{{ product.image.url }}{% else %}
                         {% static " img/ze.png" %}{% endif %}">
         </div>
 
-        <div class="col-md-6 card card-personal  back-ground">
-            <h3>{{ product.name }}</h3>
-            <a class=" " href="{{ product.category.get_absolute_url }}">
-                {{ product.category }}
-            </a>
-            <h5 class=""> R$ {{ product.price }}</h5>
-            <form action="{% url "cart:cart_add" product.id %}" method="POST">
-                <div class="form-group">
-                    {{ cart_product_form|crispy }}
-                    {% csrf_token %}
+        <div class="col-md-6">
+            <div class="col-12 card">
+                <div class="p-3">
+                    <h3>{{ product.name }}</h3>
+                    <a class=" " href="{{ product.category.get_absolute_url }}">
+                        {{ product.category }}
+                    </a>
+                    <h5 class=""> R$ {{ product.price }}</h5>
                 </div>
-                <input type="submit" class="form-control" value="Adicionar {{product.name}}">
-            </form>
-
-            <div class="col-md-12">
-                <div class="p-1">
-                    <p>
-                        {{ product.description|linebreaks }}
-                    </p>
+                <div>
+                    <form action='{% url "cart:cart_add" product.id %}' method="POST">
+                        <div class="col-12">
+                            <div class="form-group">
+                                {{ cart_product_form|crispy }}
+                                {% csrf_token %}
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <input type="submit" class="col-sm-4 col-12 form-control btn-success" value="Adicionar" >
+                        </div>
+                    </form>
                 </div>
-                <div class="p-1">
-                    <h6>Receita: {{revenue}}</h6>
-                    <p>
-                        {% for item in item_revenue %}
-                        {{item.item}} quantidade {{item.quantity}}
-                        <br>
-                        {% endfor %}
-                    </p>
+                <hr>
+                <div class="col-md-12">
+                    <div class="p-1">
+                        <h6>Descrição</h6>
+                        <p>
+                            {{ product.description|linebreaks }}
+                        </p>
+                    </div>
+                    <div class="p-1">
+                        <h6>Receita</h6>
+                        <p>
+                            {{revenue}}
+                            {% for item in item_revenue %}
+                            {{item.item}} quantidade {{item.quantity}}
+                            <br>
+                            {% endfor %}
+                        </p>
+                    </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>
 {% endblock %}

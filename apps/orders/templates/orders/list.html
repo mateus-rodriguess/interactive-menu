@@ -4,23 +4,26 @@
 {% block title %}Perfil: {{request.user}}{% endblock %}
 
 {% block content %}
-<div class="conteiner">
-    <div class="row text-white">
-        <div class="col-md-5 offset-md-3">
-            <div class="card bg-dark">
+<div class="container">
+    <div class="row py-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
                 <div class="card-header">
-                    <h1> Lista de pedidos aqui</h1>
+                    <h2 class="text-center">Todos os seus pedidos</h2>
                 </div>
-            </div>
-            <div class="col  card card-personal  bg-dark">
                 <div class="card-body">
+                    {% if intem %}
+
                     {% for intem in orderitem %}
-                        <p> {{ intem.product}}</p>
-                        <p>R$ {{ intem.price}}</p>
+                    <p> {{ intem.product}}</p>
+                    <p>R$ {{ intem.price}}</p>
                     {% endfor %}
+
+                    {% else %}
+                    <h6 class="text-center">Sem pedidos.</h6>
+                    {% endif %}
                 </div>
             </div>
-
         </div>
     </div>
 </div>

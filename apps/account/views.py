@@ -33,7 +33,7 @@ def ProfileDetailView(request, slug):
         note = orders[0]['order']
         product = orders[0]['orderitem']
         return render(request, "profile/profile.html", {"profile": profile, 'note': note, "product": product})
-    return render(request, "profile/profile.html",{"profile": profile})
+    return render(request, "profile/profile.html",{"profile": profile, 'note': "Sem detalhes", "product": "Nunca"})
 
 
 @login_required
