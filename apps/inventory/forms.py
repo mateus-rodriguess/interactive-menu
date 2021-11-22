@@ -15,6 +15,7 @@ class ItemForm(forms.ModelForm):
         model = Item
         exclude =  ("slug",)
 
+
 class ItemRevenueForm(forms.ModelForm):
     class Meta:
         model = ItemRevenue
@@ -26,7 +27,7 @@ class ItemRevenueForm(forms.ModelForm):
         quantity = self.cleaned_data['quantity']
         potions = self.cleaned_data['potions']
         kilos = self.cleaned_data['kilos']
-        
+
         
         if save_items_stock(items, quantity, potions, kilos):
             return super().save(commit=commit)

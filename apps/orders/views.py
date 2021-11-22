@@ -55,7 +55,5 @@ def order_list(request):
 def list(request):
     order = Order.objects.filter(user=request.user).last()
     orderitem = OrderItem.objects.filter(order=order)
-    print(orderitem[0])
-    for item in orderitem:
-        print(item.product)
+  
     return render(request, "orders/list.html", {"orderitem": orderitem})
