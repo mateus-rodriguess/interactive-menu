@@ -9,20 +9,7 @@ a:visited {
 p {
     font-size: 12;
 }
+
 a{
     font-size: 12;
-}
-body{
-    color:white;
-    background: #000000;
-}
-
-.back-ground{
-    background: #000000;
-    color: white;
-    
-}
-.nav-color{
-    background: #091769;
-    color: white;
 }
