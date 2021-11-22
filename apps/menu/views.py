@@ -34,12 +34,15 @@ def product_list(request, category_slug=None):
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-   
-    revenue = Revenue.objects.filter(name=product.revenue).last()
+    print(product.revenue)
+    revenue = Revenue.objects.get(pk=product.pk).last()
+    print(revenue)
     item_revenue = ItemRevenue.objects.filter(revenue=revenue)
-  
+    
+    if not item_revenue:
+        print(" naa cha")
     cart_product_form = CartAddProductForm()
-
+  
     return render(request,
                   'menu/product/detail.html',
                   {'product': product, "item_revenue": item_revenue, "revenue": revenue,

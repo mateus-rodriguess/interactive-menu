@@ -17,10 +17,13 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Cardápio <span class="sr-only">(current)</span></a>
             </li>
-
+            {% if user.is_authenticated %}
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'orders:order_list'%}">Seus Pedidos</span></a>
             </li>
+          
+            {% endif %}
+            
 
             <li class="nav-item">
                 {% if not total_items %}
