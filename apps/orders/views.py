@@ -2,11 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from apps.cart.cart import Cart
-from apps.account.models import Profile, User
 from .forms import OrderCreateForm
 from .models import OrderItem, Order
-
-# Create your views here.
 
 @login_required
 def order_create(request):
@@ -41,7 +38,6 @@ def order_create(request):
 
 
 def order_list(request):
-    profile = Profile.objects.get(user=request.user)
     order_dict = []
 
     order = Order.objects.filter(user=request.user).first()

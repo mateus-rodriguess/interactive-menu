@@ -5,7 +5,7 @@ from .forms import RevenueForm, ItemRevenueForm, ItemForm
 
 class ItemRevenueInline(admin.TabularInline):
     model = ItemRevenue
-    extra = 0
+    extra = 1
     form = ItemRevenueForm
     
 

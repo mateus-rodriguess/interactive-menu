@@ -9,7 +9,7 @@ class Revenue(models.Model):
     pattern = models.BooleanField(default=True)
 
     created = models.DateTimeField(auto_now_add=True)
-    created = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('name',)
@@ -47,7 +47,9 @@ class Item(models.Model):
         verbose_name_plural = "items"
    
     def __str__(self):
-        return f"{self.name} - QT: --"
+        # não alterar essa linha
+        # dependia das 
+        return self.name
 
     def get_absolute_url(self):
         return reverse("item_detail", kwargs={"pk": self.pk})
