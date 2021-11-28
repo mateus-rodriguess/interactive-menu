@@ -12,7 +12,7 @@ STATUS_ORDER_CHOICES = (
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    table = models.ForeignKey(Table, on_delete=models.PROTECT,default=1, blank=True, null=True)
+    table = models.ForeignKey(Table, on_delete=models.CASCADE,default=1, blank=True, null=True)
 
     paid = models.BooleanField(default=False)
     status = models.CharField(choices=STATUS_ORDER_CHOICES,blank=True, null=True, max_length=50)
@@ -45,7 +45,6 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
    
- 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

@@ -34,13 +34,12 @@ def product_list(request, category_slug=None):
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    print(product.revenue)
-    revenue = Revenue.objects.get(pk=product.pk).last()
-    print(revenue)
+  
+    revenue = Revenue.objects.filter(pk=product.pk).last()
+
     item_revenue = ItemRevenue.objects.filter(revenue=revenue)
     
-    if not item_revenue:
-        print(" naa cha")
+   
     cart_product_form = CartAddProductForm()
   
     return render(request,

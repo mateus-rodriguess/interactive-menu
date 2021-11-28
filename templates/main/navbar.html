@@ -1,6 +1,7 @@
 {% load site_tags %}
 {% load static %}
 {% load crispy_forms_tags %}
+
 <nav class="mb-3 navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand pd-5" href="/">
         <h4>
@@ -21,12 +22,10 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'orders:order_list'%}">Seus Pedidos</span></a>
             </li>
-          
             {% endif %}
-            
-
+        
             <li class="nav-item">
-                {% if not total_items %}
+                {% if total_items %}
                 <a class="nav-link active" href='{% url "cart:cart_detail" %}'>Seu Carrinho
                     {% with total_items=cart|length %}
                     {% if total_items > 0 %}

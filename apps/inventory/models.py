@@ -25,8 +25,8 @@ class Revenue(models.Model):
 
 STATUS_ITEM_CHOICES = (
     ("OK", "OK"),
-    ("Ok", "OK"),
-    ("OK", "OK"),
+    ("SE", "Sem estoque"),
+
 )
 
 
@@ -57,8 +57,7 @@ class Item(models.Model):
 
 STATUS_ITEM_STOCK_CHOICES = (
     ("OK", "OK"),
-    ("Ok", "OK"),
-    ("OK", "OK"),
+    ("SE", "Sem estoque"),
 )
 
 
@@ -86,6 +85,8 @@ class ItemStock(models.Model):
 
 
 class ItemRevenue(models.Model):
+    id = models.BigAutoField(auto_created=True, primary_key=True, 
+        serialize=False, editable=False, verbose_name='ID')
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     revenue = models.ForeignKey(Revenue, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
@@ -96,4 +97,4 @@ class ItemRevenue(models.Model):
         ordering = ('pk',)
         
     def __str__(self):
-        return f"{self.item} - Receita: {self.revenue}"
+        return f"{self.item} - Ingredientes: {self.revenue}"

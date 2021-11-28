@@ -49,18 +49,18 @@
             </div>
             <div class="card-body">
                 <a class="card-meta" href="{{ product.get_absolute_url }}">
-                    <h4 class="card-title font-weight-bold">{{ product.name }}</h4>
+                    <h5 class="card-title font-weight-bold">{{ product.name }}</h5>
                 </a>
 
                 <div>
-                    <h5 class="d-inline mb-2">
+                    <h6 class="d-inline mb-2">
                         R$ {{ product.price }} - <h6 class="d-inline text-success">Disponível</h6>
-                    </h5>
+                    </h6>
                 </div>
             
                 {% if product.description %}
-                <p class="card-text"> {{ product.description|truncatewords:14|linebreaks}} </p>
-                {%endif%}
+                <p class="card-text"> {{ product.description|truncatewords:17|linebreaks}} </p>
+                {% endif %}
                 <a class="" href="{{ product.get_absolute_url }}">
                     <input type="button" class="btn btn-success btn-block" value="Adicionar">
                 </a>

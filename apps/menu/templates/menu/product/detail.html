@@ -10,14 +10,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 mb-3 p-2 card card-personal back-ground">
-            <img class="img-fluid " src="{% if product.image %}{{ product.image.url }}{% else %}
+            <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}
                         {% static " img/ze.png" %}{% endif %}">
         </div>
 
         <div class="col-md-6">
             <div class="col-12 card">
                 <div class="p-3">
-                    <h3>{{ product.name }}</h3>
+                    <h4>{{ product.name }}</h4>
                     <a class=" " href="{{ product.category.get_absolute_url }}">
                         {{ product.category }}
                     </a>
@@ -49,7 +49,7 @@
                         <p>
                             {{revenue}}
                             {% for item in item_revenue %}
-                            {{item.item}} quantidade {{item.quantity}}
+                                {{item.item}} quantidade {{item.quantity}}
                             <br>
                             {% endfor %}
                         </p>
