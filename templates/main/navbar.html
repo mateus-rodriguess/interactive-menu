@@ -48,8 +48,8 @@
             <h5> {{request.user}} </h5>
         </a>
         {% else %}
-        <h3><a href="{% url 'account:login'%}">Login</a></p1>
-        </h3>
+        <a href="{% url 'account:login'%}"><h3>Login</h3></a>
+      
         {% endif %}
     </div>
 </nav>

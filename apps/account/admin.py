@@ -15,7 +15,7 @@ class ProfileAdmin(admin.ModelAdmin):
 @admin.register(User)
 class UserAdmin(UserAdmin):
     list_display = ['username','email','CPF', 'is_superuser', 'is_staff', 'is_active',]
-    form = UserForm
+    
     model = User
     fieldsets = UserAdmin.fieldsets + (
         ("CPF", {"fields": ("CPF",)}),
