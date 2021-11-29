@@ -25,7 +25,7 @@
             {% endif %}
         
             <li class="nav-item">
-                {% if total_items %}
+                {% if not total_items %}
                 <a class="nav-link active" href='{% url "cart:cart_detail" %}'>Seu Carrinho
                     {% with total_items=cart|length %}
                     {% if total_items > 0 %}

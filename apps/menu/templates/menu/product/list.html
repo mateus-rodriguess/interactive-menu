@@ -11,10 +11,10 @@
             <div>
                 <h6 class="d-inline">Categorias:</h3>
             </div>
-            <div>
-                <ul class="nav">
+            <div class="text-white">
+                <ul class="nav text-white">
                     <li {% if not category %} class="nav-item" {% endif %}>
-                        <a class="nav-link active" href="{% url "menu:product_list" %}">Todos</a>
+                        <a class="nav-link active" href="{% url 'menu:product_list' %}">Todos</a>
                     </li>
                     {% for c in categories %}
                     <li class="nav-item">

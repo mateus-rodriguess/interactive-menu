@@ -18,13 +18,14 @@
                     <ul class="list-group">
                         {% for item in orderitem %}
                         <li class="list-group-item">
-                            <h6>{{ item.product}}</h6>
-                            <p>R$ {{ item.price}}</p>
+                            <h6>{{ item.product}} </h6>
+                            <p>Quantidade {{item.quantity}} R$ {{ item.price }}</p>
+                          
                         </li>
                         {% endfor %}
                     </ul>
                     <input type="" class="form-control mt-1" readonly="" id="pix" value="33984385567">
-                    <button type="button" class="btn btn-outline-info" onclick="copiarHTML()">
+                    <button type="button" class="btn btn-outline-info mt-1" onclick="copiarHTML()">
                         Copiar chave pix
                     </button>
                     {% else %}

@@ -54,7 +54,9 @@ def list(request):
     price_total = 0
     for order in orders:
         orderitem = OrderItem.objects.filter(order=order).last()
-        price_total += orderitem.price
+    
+        price_total += orderitem.quantity  * orderitem.price  
+      
         orde_list.append(orderitem)
   
     return render(request, "orders/list.html", {"orderitem": orde_list, "orders": orders, "price_total": price_total})
