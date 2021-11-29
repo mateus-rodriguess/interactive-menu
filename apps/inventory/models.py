@@ -78,7 +78,7 @@ class ItemStock(models.Model):
         verbose_name_plural = "item stocks"
 
     def __str__(self):
-        return f"{self.item} - QT: {self.quantity}"
+        return f"{self.item}"
 
     def get_absolute_url(self):
         return reverse("item_stock_detail", kwargs={"pk": self.pk})

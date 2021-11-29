@@ -27,9 +27,9 @@ def order_create(request):
             # clear the cart
             cart.clear()
             # launch asynchronous task
+
+            return redirect('orders:order_list')
            
-            return render(request,
-                           "orders/list.html", {"order": order})
     else:
         form = OrderCreateForm()
     return render(request,
@@ -49,7 +49,12 @@ def order_list(request):
 
 
 def list(request):
-    order = Order.objects.filter(user=request.user).last()
-    orderitem = OrderItem.objects.filter(order=order)
+    orders = Order.objects.filter(user=request.user, paid=False)
+    orde_list = []
+    price_total = 0
+    for order in orders:
+        orderitem = OrderItem.objects.filter(order=order).last()
+        price_total += orderitem.price
+        orde_list.append(orderitem)
   
-    return render(request, "orders/list.html", {"orderitem": orderitem})
+    return render(request, "orders/list.html", {"orderitem": orde_list, "orders": orders, "price_total": price_total})

@@ -24,7 +24,7 @@ def save_items_stock(items, quantity, potions, kilos):
             item_stock.kilos -=  potions_list[i]
             item_stock.save()
         i += 1
-
+    return True
       
 
     

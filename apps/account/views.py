@@ -1,15 +1,11 @@
-from apps.menu.models import Product
-from django import forms
-from django.http import request
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 
 from .forms import UserCreationForm, ProfileForm
-from .models import Profile, User
-from apps.orders.views import order_list
-
+from .models import Profile
+from apps.orders.models import Order, OrderItem
 
 class CreateUser(generic.CreateView):
     """
@@ -28,12 +24,11 @@ def ProfileDetailView(request, slug):
     user profile view
     """  
     profile = Profile.objects.get(user=request.user)
-    orders = order_list(request)
-    if orders:
-        note = orders[0]['order']
-        product = orders[0]['orderitem']
-        return render(request, "profile/profile.html", {"profile": profile, 'note': note, "product": product})
-    return render(request, "profile/profile.html",{"profile": profile, 'note': "Sem detalhes", "product": "Nunca"})
+    order = Order.objects.filter(user=request.user).last()
+    order_item = OrderItem.objects.filter(order=order).last()
+    
+    return render(request, "profile/profile.html", {"profile": profile, "order": order, "order_item": order_item})
+    
 
 
 @login_required

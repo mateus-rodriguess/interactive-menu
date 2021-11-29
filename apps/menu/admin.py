@@ -17,7 +17,8 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_display_links = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}
-  
+   
+   
 
 @admin.register(Table)
 class tableAdmin(admin.ModelAdmin):

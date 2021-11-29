@@ -40,8 +40,8 @@ class ItemStockAdmin(admin.ModelAdmin):
     
 
 
-# @admin.register(ItemRevenue)
-# class ItemRevenueAdmin(admin.ModelAdmin):
-#     list_display = ['item', 'revenue', 'quantity']
-#     search_fields = ('item',)
-#     view_on_site = False
+@admin.register(ItemRevenue)
+class ItemRevenueAdmin(admin.ModelAdmin):
+    list_display = ['item', 'revenue', 'quantity', 'pk']
+    search_fields = ('item',)
+    view_on_site = False

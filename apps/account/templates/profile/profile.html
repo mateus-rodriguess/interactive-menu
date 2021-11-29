@@ -47,9 +47,12 @@
                 <div class="card-body back-ground">
                     <div class="row gutters">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <p class="text-primary">Ultimo pedido: {{product}}</p>
+                            <p class="text-primary">Ultimo pedido: {{order_item.product}}</p>
                             <p>
-                                Detalhes: {{note}}
+                                Detalhes: 
+                                {% if order.note %}
+                                {{order.note}}
+                                {% endif %}
                             </p>
                             <div class="mt-4">
                                 <h6 class="">

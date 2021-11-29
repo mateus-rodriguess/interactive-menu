@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from apps.inventory.models import Revenue
 
+
 class AvailableManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(available=True)

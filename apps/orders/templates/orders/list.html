@@ -5,23 +5,32 @@
 
 {% block content %}
 <div class="container">
-    <div class="row py-5">
-        <div class="col-md-6 offset-md-3">
+
+    <div class="row">
+        <div class="col-md-10 offset-md-0">
             <div class="card">
                 <div class="card-header">
                     <h2 class="text-center">Todos os seus pedidos</h2>
                 </div>
                 <div class="card-body">
-                    {% if intem %}
-
-                    {% for intem in orderitem %}
-                    <p> {{ intem.product}}</p>
-                    <p>R$ {{ intem.price}}</p>
-                    {% endfor %}
-
+                    {% if orders %}
+                    <h5>Total a pagar: {{price_total}}</h5>
+                    <ul class="list-group">
+                        {% for item in orderitem %}
+                        <li class="list-group-item">
+                            <h6>{{ item.product}}</h6>
+                            <p>R$ {{ item.price}}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <input type="" class="form-control mt-1" readonly="" id="pix" value="33984385567">
+                    <button type="button" class="btn btn-outline-info" onclick="copiarHTML()">
+                        Copiar chave pix
+                    </button>
                     {% else %}
-                    <h6 class="text-center">Sem pedidos.</h6>
+                    <h6 class="text-center">Sem pedidos</h6>
                     {% endif %}
+
                 </div>
             </div>
         </div>
