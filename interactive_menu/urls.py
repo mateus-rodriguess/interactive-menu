@@ -27,7 +27,7 @@ admin.site.index_title = "Bem vindo"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('apps.account.urls',  namespace='accounts')),
+    path('account/', include('apps.account.urls',  namespace='accounts')),
     path('cart/', include('apps.cart.urls', namespace='cart')),
     path('', include('apps.menu.urls', namespace='menu')),
     path('orders/', include('apps.orders.urls', namespace='orders')),
