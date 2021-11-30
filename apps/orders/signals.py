@@ -10,5 +10,6 @@ def updadte_inventory(sender, instance, created, **kwargs):
     else:
         if instance.status == "Concluido" or instance.paid == True:
             stock(instance)
+               
         
 post_save.connect(updadte_inventory, sender=Order)

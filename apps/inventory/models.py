@@ -63,12 +63,12 @@ STATUS_ITEM_STOCK_CHOICES = (
 
 class ItemStock(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    potions = models.FloatField(blank=True, default=0, null=True)
-    kilos = models.FloatField(blank=True, default=0, null=True)
+    quantity = models.PositiveIntegerField(default=1, null=False)
+    potions = models.FloatField(blank=False, default=0, null=False)
+    kilos = models.FloatField(blank=False, default=0, null=False)
     status = models.CharField(blank=True, choices=STATUS_ITEM_STOCK_CHOICES,
                               max_length=3, null=True)
-
+    
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -89,9 +89,9 @@ class ItemRevenue(models.Model):
         serialize=False, editable=False, verbose_name='ID')
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     revenue = models.ForeignKey(Revenue, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    potions = models.FloatField(blank=True, default=0, null=True)
-    kilos = models.FloatField(blank=True, default=0, null=True)
+    quantity = models.PositiveIntegerField(default=0, null=False)
+    potions = models.FloatField(blank=False, default=0, null=False)
+    kilos = models.FloatField(blank=False, default=0, null=False)
 
     class Meta:
         ordering = ('pk',)
