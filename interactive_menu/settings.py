@@ -22,14 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-DEBUG = os.getenv("DEBUG", 'local')
-
+DEBUG  = True
 SECRET_KEY = os.getenv("SECRET_KEY", 'local') if not DEBUG else "secret key"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['1749-201-182-216-243.ngrok.io', '192.168.0.2', '192.168.0.195', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.2', '192.168.0.195', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -41,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
     'django.contrib.postgres',
     'crispy_forms',
     'cpf_field',

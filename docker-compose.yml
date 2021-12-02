@@ -15,7 +15,9 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1234
+    
     #volumes:
+    # não salvar os dados
     #  - postgres_data:/var/lib/postgresql/data/
 
 volumes:

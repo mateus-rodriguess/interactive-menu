@@ -57,4 +57,3 @@ caixa de texto de observações para cliente
 adição de valores ganhos a partir da venda do produto
 *dedução de valores gastos a partir do uso dos itens
 
-(*) = algo a mais

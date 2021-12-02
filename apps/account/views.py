@@ -7,6 +7,8 @@ from .forms import UserCreationForm, ProfileForm
 from .models import Profile
 from apps.orders.models import Order, OrderItem
 
+
+
 class CreateUser(generic.CreateView):
     """
     view that reder the template for user registration
