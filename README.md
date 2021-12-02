@@ -11,7 +11,7 @@ _______________________________________________
 - [x] Sistema de registo;
     - [x] Perfil do usuario; 
 - [x] Compras;
-- [ ] Gerenciamento de estoque;
+- [x] Gerenciamento de estoque;
 - [x] ADM;
 - [ ] Layout final;
 - [x] Conteiner docker
@@ -19,14 +19,11 @@ _______________________________________________
 
 
  # Como instalar
- * Install [Python](https://www.python.org/downloads/)
- * Postgres database com nome interactive-menu
- * Executar os comandos 
+ * Install [Docker](https://docs.docker.com/compose/install/)
+ * Executar o comando docker
 
 ```bash
-pipenv install --dev
-python manage.py migrate
-python manage.py runserver
+docker-compose up
 ```
 
-Your application will be running at `http://127.0.0.1:8000`
+Seu aplicativo estará em execução em `http://127.0.0.1:8000`
