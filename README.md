@@ -15,7 +15,7 @@ _______________________________________________
 - [x] ADM;
 - [ ] Layout final;
 - [x] Conteiner docker
-- [x] testes
+- [x] Testes
 
 
  # Como instalar
