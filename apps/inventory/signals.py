@@ -2,6 +2,7 @@ from django.db.models.signals import post_save
 
 from apps.inventory.models import ItemStock, Item
 
+
 def create_item_stock(sender, instance, created, **kwargs):  
     
     if created:

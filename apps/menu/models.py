@@ -1,25 +1,12 @@
 from django.db import models
 from django.urls import reverse
-from apps.inventory.models import Revenue
+from apps.inventory.models import Ingredient
 
 
 class AvailableManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(available=True)
 
-
-class Table(models.Model):
-    number = models.IntegerField(unique=True, default=1)
-    description = models.TextField(blank=True)
-    max = models.IntegerField(null=True, blank=True, default=2)
-    # mais fields
-
-    class Meta:
-        verbose_name = ("table")
-        verbose_name_plural = ("tables")
-
-    def __str__(self):
-        return str(self.number)
 
 
 class Category(models.Model):
@@ -54,7 +41,7 @@ class Product(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    revenue = models.ForeignKey(Revenue, on_delete=models.PROTECT)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT)
    
     objects = models.Manager()
     available_mamager = AvailableManager()

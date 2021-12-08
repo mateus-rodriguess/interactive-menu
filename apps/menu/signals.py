@@ -3,6 +3,7 @@ from django.conf import settings
 from apps.menu.models import Product 
 from apps.menu.services.resize_image.pillow_image import resize_image
 
+
 def  create_product(sender, instance, created, **kwargs):   
   
     if created and instance.image:

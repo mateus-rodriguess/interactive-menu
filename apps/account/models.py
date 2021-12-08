@@ -3,8 +3,13 @@ from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from cpf_field.models import CPFField
 
+
 class User(AbstractUser):
     CPF = CPFField('cpf')
+    slug = models.SlugField(max_length=150, unique=True)
+    
+    def get_absolute_url(self):
+        return reverse('account:profile-detail-view', args=[self.username])
     
 
 class Profile(models.Model):
@@ -12,8 +17,8 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100, blank=True, unique=False, default="Nome")
     last_name = models.CharField(max_length=100, blank=True,  unique=False, default="Sobrenome")    
     
+    slug = models.SlugField(max_length=150,unique=True)
     active = models.BooleanField(default=True)
-    slug = models.SlugField(unique=True, blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -26,5 +31,5 @@ class Profile(models.Model):
         return f"{self.first_name} - {self.user}" 
 
     def get_absolute_url(self):
-        return reverse("account:profile-detail-view", kwargs={"slug": self.user})
+        return reverse("account:profile-detail-view", args=[self.user])
     

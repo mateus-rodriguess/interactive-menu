@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Table
+from .models import Category, Product
 
 
 @admin.register(Category)
@@ -18,9 +18,3 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}
    
-   
-
-@admin.register(Table)
-class tableAdmin(admin.ModelAdmin):
-    list_display = ['number', 'max']
-    

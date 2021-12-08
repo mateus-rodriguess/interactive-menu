@@ -5,7 +5,7 @@ html,css,JS
 Banco de dados: postgree
 Linguagem: python (django)
 
-
+>>>>>>>>>> path 1
 1ª entrega: Esquema elaborado do que será o sistema. 
 primeira projeçao o que vai ter; como será o projeto;
 mudanças necessarias nos processos do estabelecimento;
@@ -36,7 +36,6 @@ carrinho de compras.
 confirmação de pedidos
 status do pedido, comcluido ou não
 status, para cada models
-table messa, numero da mesa
 metodos de pagamento na ordem do pedido
 observações do pedido, na ordem do pedido.
 cadastro, nome, cpf, email, senha, user do django

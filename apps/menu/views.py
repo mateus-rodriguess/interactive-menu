@@ -2,7 +2,7 @@ from django.contrib.postgres.search import SearchVector
 from django.shortcuts import get_object_or_404, render
 
 from apps.cart.forms import CartAddProductForm
-from apps.inventory.models import ItemRevenue, Revenue
+from apps.inventory.models import ItemIngredient, Ingredient
 
 from .forms import SearchForm
 from .models import Category, Product
@@ -10,7 +10,6 @@ from .models import Category, Product
 
 def product_list(request, category_slug=None):
     category = None
-    query = None
 
     form = SearchForm()
     categories = Category.objects.all()
@@ -34,15 +33,12 @@ def product_list(request, category_slug=None):
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-  
-    revenue = Revenue.objects.filter(pk=product.pk).last()
-
-    item_revenue = ItemRevenue.objects.filter(revenue=revenue)
-    
+    ingredient = Ingredient.objects.filter(pk=product.pk).last()
+    item_ingredient = ItemIngredient.objects.filter(ingredient=ingredient)
    
     cart_product_form = CartAddProductForm()
   
     return render(request,
                   'menu/product/detail.html',
-                  {'product': product, "item_revenue": item_revenue, "revenue": revenue,
+                  {'product': product, "item_ingredient": item_ingredient, "ingredient": ingredient,
                    'cart_product_form': cart_product_form})

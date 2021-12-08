@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.fields import related
-from apps.menu.models import Product, Table
+from apps.menu.models import Product
 from apps.account.models import User
 
 
@@ -12,8 +12,6 @@ STATUS_ORDER_CHOICES = (
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    table = models.ForeignKey(Table, on_delete=models.CASCADE,default=1, blank=True, null=True)
-
     paid = models.BooleanField(default=False)
     status = models.CharField(choices=STATUS_ORDER_CHOICES,blank=True, null=True, max_length=3)
     note = models.CharField(blank=True, null=True, max_length=110, default="")
@@ -36,6 +34,7 @@ STATUS_ITEM_ORDER_CHOICES = (
     ("NAC", "Não concluido"),
     ("PRE", "Preparando"),
 )
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name="itens", on_delete=models.CASCADE)

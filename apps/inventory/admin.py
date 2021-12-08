@@ -1,14 +1,13 @@
 from django.contrib import admin
-from .models import Item, Revenue, ItemStock, ItemRevenue
-from .forms import RevenueForm, ItemRevenueForm, ItemForm
+from .models import Item, Ingredient, ItemStock, ItemIngredient
+from .forms import IngredientForm, ItemIngredientForm, ItemForm
 
 
 class ItemRevenueInline(admin.TabularInline):
-    
-    model = ItemRevenue
+    model = ItemIngredient
     raw_id_fields = ['item']
     extra = 1
-    form = ItemRevenueForm
+    form = ItemIngredientForm
     
 
 @admin.register(Item)
@@ -20,15 +19,13 @@ class ItemAdmin(admin.ModelAdmin):
     view_on_site = False
 
 
-
-@admin.register(Revenue)
-class RevenueAdmin(admin.ModelAdmin):
+@admin.register(Ingredient)
+class IngredientAdmin(admin.ModelAdmin):
     list_display = ['name', 'pattern', 'created', 'updated']
     search_fields = ('name',)
     inlines = [ItemRevenueInline]
     view_on_site = False
-    form = RevenueForm
-
+    form = IngredientForm
 
 
 @admin.register(ItemStock)
@@ -37,11 +34,10 @@ class ItemStockAdmin(admin.ModelAdmin):
     search_fields = ('item',)
     list_editable = ['quantity', 'potions', 'kilos', 'status']
     view_on_site = False
-    
 
 
-@admin.register(ItemRevenue)
-class ItemRevenueAdmin(admin.ModelAdmin):
-    list_display = ['item', 'revenue', 'quantity', 'pk']
+@admin.register(ItemIngredient)
+class ItemIngredientAdmin(admin.ModelAdmin):
+    list_display = ['item', 'ingredient', 'quantity', 'pk']
     search_fields = ('item',)
     view_on_site = False

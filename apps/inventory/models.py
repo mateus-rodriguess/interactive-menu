@@ -2,9 +2,9 @@ from django.db import models
 from django.urls import reverse
 
 
-class Revenue(models.Model):
+class Ingredient(models.Model):
     name = models.CharField(max_length=140, unique=True, db_index=True)
-    slug = models.SlugField(max_length=140, db_index=True)
+    slug = models.SlugField(max_length=140,  unique=True)
     description = models.TextField(blank=True, null=True)
     pattern = models.BooleanField(default=True)
 
@@ -13,14 +13,14 @@ class Revenue(models.Model):
 
     class Meta:
         ordering = ('name',)
-        verbose_name = "revenue"
-        verbose_name_plural = "revenues"
+        verbose_name = "Ingredient"
+        verbose_name_plural = "Ingredient"
 
     def __str__(self):
         return f"{self.name} - " + "Padrao" if self.pattern == True else "Modificada"
 
     def get_absolute_url(self):
-        return reverse("revenue_detail", kwargs={"pk": self.pk})
+        return reverse("Ingredient_detail", kwargs={"pk": self.pk})
 
 
 STATUS_ITEM_CHOICES = (
@@ -32,7 +32,7 @@ STATUS_ITEM_CHOICES = (
 
 class Item(models.Model):
     name = models.CharField(max_length=140, unique=True, db_index=True)
-    slug = models.SlugField(max_length=140, db_index=True)
+    slug = models.SlugField(max_length=140,  unique=True)
     description = models.TextField(blank=True, null=True)
 
     status = models.CharField(blank=True, choices=STATUS_ITEM_CHOICES,
@@ -82,19 +82,19 @@ class ItemStock(models.Model):
         return reverse("item_stock_detail", kwargs={"pk": self.pk})
 
 
-class ItemRevenue(models.Model):
+class ItemIngredient(models.Model):
     id = models.BigAutoField(auto_created=True, primary_key=True,
                              serialize=False, editable=False, verbose_name='ID')
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    revenue = models.ForeignKey(Revenue, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0, null=False)
     potions = models.FloatField(blank=False, default=0, null=False)
     kilos = models.FloatField(blank=False, default=0, null=False)
 
     class Meta:
         ordering = ('pk',)
-        verbose_name = "Item revenue"
-        verbose_name_plural = "item stocks"
+        verbose_name = "Item ingredient"
+        verbose_name_plural = "Item ingredient"
 
     def __str__(self):
         return f"{self.item}"

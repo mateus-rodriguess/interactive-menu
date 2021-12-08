@@ -1,16 +1,16 @@
 from django import forms
-from .models import Item, Revenue, ItemRevenue
+from .models import Item, Ingredient, ItemIngredient
 
 
-class RevenueForm(forms.ModelForm):
+class IngredientForm(forms.ModelForm):
     
     class Meta:
-        model = Revenue
+        model = Ingredient
         exclude = ("slug",)
     
     def save(self, commit: bool = ...):
-        # possivel alteração    
         return super().save(commit=commit)
+
 
 class ItemForm(forms.ModelForm):
     
@@ -19,10 +19,10 @@ class ItemForm(forms.ModelForm):
         exclude =  ("slug",)
 
 
-class ItemRevenueForm(forms.ModelForm):
+class ItemIngredientForm(forms.ModelForm):
     class Meta:
-        model = ItemRevenue
-        fields =  "__all__"
+        model = ItemIngredient
+        fields = "__all__"
  
     def save(self, commit: bool = ...):
         return super().save(commit=commit)  

@@ -9,7 +9,7 @@ from .forms import UserCreationForm, UserChangeForm, ProfileForm, UserForm
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name','user', 'active']
     search_fields = ('first_name',)
-    form = UserForm
+    form = ProfileForm
     model = Profile
 
 @admin.register(User)
@@ -17,6 +17,7 @@ class UserAdmin(UserAdmin):
     list_display = ['username','email','CPF', 'is_superuser', 'is_staff', 'is_active',]
     
     model = User
+    form = UserChangeForm
     fieldsets = UserAdmin.fieldsets + (
         ("CPF", {"fields": ("CPF",)}),
     )
