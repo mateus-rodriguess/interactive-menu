@@ -42,8 +42,7 @@
             <div class="view overlay">
                 <a href="{{ product.get_absolute_url }}">
                     <img class="card-img-top img-fluid"
-                        src=" {% if product.image %}{{ product.image.url }} {% else %} {% static "
-                        img/ze.png" %} {% endif %}">
+                        src=" {% if product.image %}{{ product.image.url }} {% else %} {% static 'img/ze.png' %} {% endif %}">
                     <div class="mask rgba-white-slight"></div>
                 </a>
             </div>

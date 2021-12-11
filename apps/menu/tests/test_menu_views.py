@@ -21,18 +21,20 @@ class TestViewsMenu:
         self.request.session.save()
 
     def test_product_detail_is_authenticated(self, ingredient):
-        # msm sem ta logoda e permitido ver esse view
         category = mixer.blend(Category, name="pizza", slug="pizza")
         product = mixer.blend(Product, name="pizza", slug="pizza",
                               price=2.9, ingredient=ingredient, category=category)
+
         path = reverse('menu:product_detail', kwargs={
                        'id': product.id, "slug": product.slug})
 
         self.setUp(path)
         self.request.user = mixer.blend(User)
-
         response = product_detail(
             self.request, id=product.id, slug=product.slug)
+
+        assert product.name in str(
+            response.content) and category.name in str(response.content)
         assert response.status_code == 200
 
     def test_product_list_view(self, ingredient):
