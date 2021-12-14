@@ -24,15 +24,17 @@ admin.site.site_header = "Administração"
 admin.site.site_title = "ADM"
 admin.site.index_title = "Bem vindo"
 
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api/', include('apps.menu.api.urls', namespace='api_menu')),
+    path('api/', include('apps.inventory.api.urls', namespace='api_inventory')),
+    
+    path('', include('apps.menu.urls', namespace='menu')),
     path('account/', include('apps.account.urls',  namespace='accounts')),
     path('cart/', include('apps.cart.urls', namespace='cart')),
-    path('', include('apps.menu.urls', namespace='menu')),
     path('orders/', include('apps.orders.urls', namespace='orders')),
+    
+    
   
-   
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

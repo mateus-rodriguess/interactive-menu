@@ -21,7 +21,7 @@ class ItemAdmin(admin.ModelAdmin):
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ['name', 'pattern', 'created', 'updated']
+    list_display = ['name', 'pattern', 'created', 'updated', 'pk']
     search_fields = ('name',)
     inlines = [ItemRevenueInline]
     view_on_site = False

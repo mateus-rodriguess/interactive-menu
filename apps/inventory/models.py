@@ -4,7 +4,6 @@ from django.urls import reverse
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=140, unique=True, db_index=True)
-    slug = models.SlugField(max_length=140,  unique=True)
     description = models.TextField(blank=True, null=True)
     pattern = models.BooleanField(default=True)
 
@@ -32,7 +31,6 @@ STATUS_ITEM_CHOICES = (
 
 class Item(models.Model):
     name = models.CharField(max_length=140, unique=True, db_index=True)
-    slug = models.SlugField(max_length=140,  unique=True)
     description = models.TextField(blank=True, null=True)
 
     status = models.CharField(blank=True, choices=STATUS_ITEM_CHOICES,
@@ -76,7 +74,7 @@ class ItemStock(models.Model):
         verbose_name_plural = "item stocks"
 
     def __str__(self):
-        return f"{self.item}"
+        return f"{self.item.name}"
 
     def get_absolute_url(self):
         return reverse("item_stock_detail", kwargs={"pk": self.pk})
@@ -97,4 +95,4 @@ class ItemIngredient(models.Model):
         verbose_name_plural = "Item ingredient"
 
     def __str__(self):
-        return f"{self.item}"
+        return f"{self.item.name}"

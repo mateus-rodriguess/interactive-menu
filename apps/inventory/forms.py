@@ -6,7 +6,7 @@ class IngredientForm(forms.ModelForm):
 
     class Meta:
         model = Ingredient
-        exclude = ("slug",)
+        fields = "__all__"
 
     def save(self, commit: bool = ...):
         return super().save(commit=commit)
@@ -16,7 +16,7 @@ class ItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        exclude = ("slug",)
+        fields = "__all__"
 
 
 class ItemIngredientForm(forms.ModelForm):

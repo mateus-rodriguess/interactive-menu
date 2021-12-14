@@ -1,7 +1,8 @@
 # interactive-menu
 
-
-_______________________________________________
+Neste projeto foi desenvolvido um cardápio web pra restaurantes, onde além de apresentar os produtos com a descrição e seus ingredientes os clientes podem adicioná-los no carrinho, escolher a quantidade e uma breve descrição, e depois efetuar o método de pagamento PIX.
+Para o desenvolvimento foi usado o framework Django.
+____________________________________________________________
 
 ## Objetivos
 
@@ -16,6 +17,7 @@ _______________________________________________
 - [ ] Layout final;
 - [x] Conteiner docker
 - [x] Testes
+- [x] API
 
 
  # Como instalar
@@ -24,6 +26,14 @@ _______________________________________________
 
 ```bash
 docker-compose up
+```
+ * Fazer as migrações 
+```bash
+docker-compose run web python manage.py migrate
+```
+ * Criar o super usuario 
+```bash
+docker-compose run web python manage.py createsuperuser
 ```
 
 Seu aplicativo estará em execução em `http://127.0.0.1:8000`
