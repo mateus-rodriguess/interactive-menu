@@ -25,13 +25,15 @@ admin.site.site_title = "ADM"
 admin.site.index_title = "Bem vindo"
 
 urlpatterns = [
-    path('api/', include('apps.menu.api.urls', namespace='api_menu')),
-    path('api/', include('apps.inventory.api.urls', namespace='api_inventory')),
+    path('admin/', admin.site.urls),
+   
+    path('api/', include('apps.api.urls', namespace='api')),
     
     path('', include('apps.menu.urls', namespace='menu')),
     path('account/', include('apps.account.urls',  namespace='accounts')),
     path('cart/', include('apps.cart.urls', namespace='cart')),
     path('orders/', include('apps.orders.urls', namespace='orders')),
+    
     
     
   
