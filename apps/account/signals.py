@@ -5,10 +5,10 @@ from apps.account.models import Profile, User
 
 def  create_profile(sender, instance, created, **kwargs):    
     if created:
-        Profile.objects.create(user=instance, slug=instance.slug)
+        Profile.objects.create(user=instance)
     else:
         if hasattr(instance, 'profile'):
-            Profile.objects.create(user=instance, slug=instance.slug)
+            Profile.objects.create(user=instance)
         
         
 

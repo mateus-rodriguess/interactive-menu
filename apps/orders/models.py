@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.fields import related
 from apps.menu.models import Product
 from apps.account.models import User
 
