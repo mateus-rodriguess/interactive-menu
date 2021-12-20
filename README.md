@@ -6,19 +6,20 @@ ____________________________________________________________
 
 ## Objetivos
 
-- [x] Lista de produtos;
-- [x] Categoria de produtos;
-- [x] Carinho de compra;
-- [x] Sistema de registo;
-    - [x] Perfil do usuario; 
-- [x] Compras;
-- [x] Gerenciamento de estoque;
-- [x] ADM;
-- [ ] Layout final;
+- [x] Lista de produtos
+- [x] Categoria de produtos
+- [x] Carinho de compra
+- [x] Sistema de registo
+    - [x] Perfil do usuario 
+- [x] Compras
+- [x] Gerenciamento de estoque
+- [x] ADM
+- [ ] Layout final
 - [x] Conteiner docker
 - [x] Testes
 - [x] API
-
+- [x] JWTAuthentication
+____________________________________________________________
 
  # Como instalar
  * Install [Docker](https://docs.docker.com/compose/install/)
