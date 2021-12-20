@@ -34,6 +34,9 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.first_name} - {self.user}" 
 
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+    
     def get_absolute_url(self):
         return reverse("account:profile-detail-view", args=[self.user])
     
