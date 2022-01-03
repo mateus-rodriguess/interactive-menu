@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-DEBUG = True
+DEBUG =  os.getenv("DEBUG", False) 
 # TEMPLATE_DEBUG = DEBUG
 SECRET_KEY = os.getenv("SECRET_KEY", 'local') if not DEBUG else "secret key"
 
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     'apps.account.apps.AccountConfig',
     'apps.menu.apps.MenuConfig',
-    'apps.core_config.apps.CoreConfigConfig',
+    'apps.core.apps.CoreConfig',
     'apps.cart.apps.CartConfig',
     'apps.orders.apps.OrdersConfig',
     'apps.inventory.apps.InventoryConfig',

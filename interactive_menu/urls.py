@@ -28,10 +28,10 @@ admin.site.site_header = "Administração"
 admin.site.site_title = "ADM"
 admin.site.index_title = "Bem vindo"
 
-handler404 = 'apps.core_config.views.custom_404'
-handler500 = 'apps.core_config.views.custom_500'
-handler403 = "apps.core_config.views.custom_403"
-handler400 = "apps.core_config.views.custom_400"
+handler404 = 'apps.core.views.custom_404'
+handler500 = 'apps.core.views.custom_500'
+handler403 = "apps.core.views.custom_403"
+handler400 = "apps.core.views.custom_400"
 
 urlpatterns = [
 
