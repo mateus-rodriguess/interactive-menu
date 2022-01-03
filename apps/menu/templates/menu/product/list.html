@@ -34,7 +34,7 @@
     </h5>
 
     <div class="row mb-5">
-       
+        
         {% for product in products %}
 
         <div class="col-sm-4 card booking-card">
@@ -47,6 +47,7 @@
                 </a>
             </div>
             <div class="card-body">
+                
                 <a class="card-meta" href="{{ product.get_absolute_url }}">
                     <h5 class="card-title font-weight-bold">{{ product.name }}</h5>
                 </a>

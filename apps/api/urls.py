@@ -3,6 +3,7 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from .views import inventory_views
 from .views  import menu_views
+from .views import account_views
 
 from .viewsets import viewsets
 
@@ -12,8 +13,8 @@ router = routers.DefaultRouter()
 # app invetory
 router.register('ingredient',viewsets.IngredientViewSet)
 router.register('item', viewsets.ItemtViewSet)
-router.register('item stock', viewsets.ItemStockViewSet)
-router.register('item ingredient', viewsets.ItemIngredientViewSet)
+router.register('item/stock', viewsets.ItemStockViewSet)
+router.register('item/ingredient', viewsets.ItemIngredientViewSet)
 # app menu
 router.register('product', viewsets.ProductViewSet)
 router.register('category', viewsets.CategoryViewSet)
@@ -23,7 +24,12 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
-    # rotas prontas
+    path("account/add/", account_views.AccountCreateView.as_view(), name="accout_add"),
+    path("account/update/<int:pk>/", account_views.AccountUpdateView.as_view(), name="accout_update"),
+    path("account/delete/<int:pk>/", account_views.AccountDeleteView.as_view(), name="accout_delete"),
+    path("account/<int:pk>/", account_views.AccountDetailView.as_view(), name="accout_detail"),
+    path("account/", account_views.AccountListView.as_view(), name="accout_list"),
+
     path("ingredient/add/", inventory_views.IngredientCreateView.as_view(), name="ingredient_app"),
     path("ingredient/update/<int:pk>", inventory_views.IngredientUpdateView.as_view(), name="ingredient_update"),
     path("ingredient/<int:pk>/", inventory_views.IngredientDetailView.as_view(), name="ingredient_detail"),

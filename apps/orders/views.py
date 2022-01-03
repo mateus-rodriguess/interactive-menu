@@ -37,19 +37,8 @@ def order_create(request):
                   {'cart': cart, 'form': form})
 
 
+@login_required
 def order_list(request):
-    order_dict = []
-
-    order = Order.objects.filter(user=request.user).first()
-    orderitem = OrderItem.objects.filter(order=order).first()
-    if order and orderitem:
-        order_dict.append(
-            {"order": order.note, "orderitem": orderitem.product})
-
-    return order_dict
-
-
-def list(request):
     orders = Order.objects.filter(user=request.user, paid=False)
     orde_list = []
     price_total = 0

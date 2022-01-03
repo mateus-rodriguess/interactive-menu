@@ -53,7 +53,7 @@ class ProductSerializers(serializers.ModelSerializer, DestroyModelMixin):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'description',
+        fields = ['id', 'name','image', 'category', 'description',
                   'price', 'available', 'ingredient']
 
 
@@ -63,7 +63,7 @@ class ProductDeleteSerializers(serializers.ModelSerializer, DestroyModelMixin):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'description',
+        fields = ['id', 'name','image', 'category', 'description',
                   'price', 'available', 'ingredient']
 
     def destroy(self, request, *args, **kwargs):
@@ -76,7 +76,7 @@ class ProductCreateSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'description',
+        fields = ['id', 'name','image', 'category', 'description',
                   'price', 'available', 'ingredient']
 
     def create(self, validated_data):
@@ -88,7 +88,7 @@ class ProductUpdateSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'description',
+        fields = ['id', 'name','image', 'category', 'description',
                   'price', 'available', 'ingredient']
 
     def create(self, instance, validated_data):
@@ -99,7 +99,7 @@ class ProductDestroySerializers(serializers.ModelSerializer, DestroyModelMixin):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'description',
+        fields = ['id', 'name','image', 'category', 'description',
                   'price', 'available', 'ingredient']
 
     def destroy(self, request, *args, **kwargs):

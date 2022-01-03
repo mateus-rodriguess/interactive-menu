@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-from pathlib import Path
 from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,9 +18,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 DEBUG = True
+# TEMPLATE_DEBUG = DEBUG
 SECRET_KEY = os.getenv("SECRET_KEY", 'local') if not DEBUG else "secret key"
 
-ALLOWED_HOSTS = ['192.168.0.2', '192.168.0.195', 'localhost', '127.0.0.1']
+
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -33,9 +34,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'rest_framework',
     'rest_framework_simplejwt',
     'django.contrib.postgres',
+    
     'crispy_forms',
     'cpf_field',
     'debug_toolbar',
@@ -81,7 +84,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
     ],
     'DEFAULT_PERMISSION_CLASSES':(
-        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -90,15 +93,24 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
+    # limitadores de da api 
+     'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+      'DEFAULT_THROTTLE_RATES': {
+        'anon': '1000/day',
+        'user': '1000/day'
+    },
+
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 }
    
-
 # token JWT
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1) if not DEBUG else timedelta(days=30),
+    'REFRESH_TOKEN_LIFETIME':  timedelta(days=20) if not DEBUG else timedelta(days=40),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
@@ -120,8 +132,8 @@ SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5) if not DEBUG else timedelta(days=10),
-    'SLIDING_TOKEN_REFRESH_LIFETIME':  timedelta(days=1) if not DEBUG else timedelta(days=20),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=1) if not DEBUG else timedelta(days=30),
+    'SLIDING_TOKEN_REFRESH_LIFETIME':  timedelta(days=20) if not DEBUG else timedelta(days=40),
 }
 
 
@@ -151,15 +163,19 @@ WSGI_APPLICATION = 'interactive_menu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'db',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432')
     }
 }
 
 
+        
+        
+        
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -199,16 +215,14 @@ AUTH_USER_MODEL = 'account.User'
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATIC_ROOT = 'staticfiles'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -232,7 +246,15 @@ CART_SESSION_ID = 'cart'
 # debug
 INTERNAL_IPS = [
     # ...
-    '127.0.0.1',
+    'localhost',
 
     # ...
 ]
+
+# Celery config
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE

@@ -4,7 +4,7 @@ from apps.menu.models import Category, Product
 
 
 @pytest.mark.django_db
-class TestModel:
+class TestMenuModel:
 
     def test_model_display_category(self):
         category = mixer.blend(Category, name="categoria")

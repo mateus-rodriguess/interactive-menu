@@ -1,40 +1,31 @@
-from apps.api.serializers.menu_serializers import (CategoryCreateSerializers,
-                                       CategoryListSerializers,
-                                       CategorySerializers,
-                                       CategoryUpdateSerializers,
-                                       ProductCreateSerializers,
-                                       ProductSerializers,
-                                       ProductUpdateSerializers,
-                                       ProductDeleteSerializers,
-                                       CategoryDeleteSerializers)
+from apps.api.serializers import menu_serializers
 from apps.menu.models import Category, Product
 from rest_framework import generics
-from rest_framework.permissions import IsAdminUser
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
+
 
 class ProductListView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    
     queryset = Product.objects.all()
-    serializer_class = ProductSerializers
-    #permission_classes = [IsAdminUser]
+    serializer_class = menu_serializers.ProductSerializers
 
 
 class ProductDetailView(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
     queryset =  Product.objects.all()
-    serializer_class = ProductSerializers
+    serializer_class = menu_serializers.ProductSerializers
 
 
 class ProductCreateView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    
     queryset =  Product.objects.all()
-    serializer_class = ProductCreateSerializers
+    serializer_class =  menu_serializers.ProductCreateSerializers
 
 
 class ProductDestroyView(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset =  Product.objects.all()
-    serializer_class = ProductDeleteSerializers
+    serializer_class = menu_serializers.ProductDeleteSerializers
 
     # pode fazer desse jeito tambem
     # def perform_destroy(self, instance):
@@ -42,39 +33,38 @@ class ProductDestroyView(generics.DestroyAPIView):
 
 
 class ProductUpdateView(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset =  Product.objects.all()
-    serializer_class = ProductUpdateSerializers
+    serializer_class = menu_serializers.ProductUpdateSerializers
     
 
 class CategoryListView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
-    serializer_class = CategoryListSerializers
+    serializer_class = menu_serializers.CategoryListSerializers
 
 
 class CategoryCreateView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = Category.objects.all()
-    serializer_class = CategoryCreateSerializers
+    serializer_class = menu_serializers.CategoryCreateSerializers
 
 
 class CategoryDetailView(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
+  
     queryset = Category.objects.all()
-    serializer_class = CategorySerializers
+    serializer_class = menu_serializers.CategorySerializers
 
 
 class CategoryUpdateView(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = Category.objects.all()
-    serializer_class = CategoryUpdateSerializers
+    serializer_class = menu_serializers.CategoryUpdateSerializers
 
 
 class CategoryDeleteView(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = Category.objects.all()
-    serializer_class = CategoryDeleteSerializers
+    serializer_class = menu_serializers.CategoryDeleteSerializers
 
     def perform_destroy(self, instance):
         return super().perform_destroy(instance)

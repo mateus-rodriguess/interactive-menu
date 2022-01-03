@@ -25,7 +25,7 @@ def product_list(request, category_slug=None):
             query = form.cleaned_data['query']
             products = Product.available_mamager.annotate(
                 search=SearchVector('name', 'description')).filter(search=query)
-
+            
     return render(request, 'menu/product/list.html', {'category': category,
                                                       'categories': categories,
                                                       'products': products, 'form': form})

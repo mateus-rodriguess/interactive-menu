@@ -1,4 +1,3 @@
-from django import urls
 from django.urls import reverse, resolve
 import pytest
 
@@ -9,9 +8,9 @@ import pytest
 class TestMenuView():
 
     def test_product_list(self, client, param):
-        temp_url = urls.reverse(param)
-        resp = client.get(temp_url)
-        assert resp.status_code == 200
+        temp_url = reverse(param)
+        response = client.get(temp_url)
+        assert response.status_code == 200
 	
 
 @pytest.mark.django_db

@@ -1,15 +1,21 @@
 import pytest
 from django.contrib.auth import get_user_model
-
+from apps.account.models import User
 
 @pytest.fixture
 def user_data():
     return {'email': 'test@gmail.com', 'username': 'username', 
             'password1': 'user_pass543', 'password2': 'user_pass543', "CPF": 48684721608}
 
+
 @pytest.fixture
 def user_data_login():
     return {'username': 'username', 'password': 'user_pass543'}
+
+
+@pytest.fixture
+def user(db):
+    return User.objects.create(username="teste", password="testes1234")
 
 
 @pytest.fixture
