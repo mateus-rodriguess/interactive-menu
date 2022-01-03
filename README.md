@@ -28,10 +28,6 @@ ____________________________________________________________
 ```bash
 docker-compose up
 ```
- * Fazer as migrações 
-```bash
-docker-compose run web python manage.py migrate
-```
  * Criar o super usuario 
 ```bash
 docker-compose run web python manage.py createsuperuser
