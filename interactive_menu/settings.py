@@ -21,9 +21,7 @@ DEBUG = True
 # TEMPLATE_DEBUG = DEBUG
 SECRET_KEY = os.getenv("SECRET_KEY", 'local') if not DEBUG else "secret key"
 
-
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
