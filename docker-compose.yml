@@ -1,8 +1,8 @@
 version: "3.8"
+
 services:
-  app:
-    build:
-      context: .
+  web:
+    build: .
     ports:
       - "8000:8000"
     volumes:
@@ -11,7 +11,6 @@ services:
       sh -c "python manage.py migrate &&
              python manage.py wait_for_db &&
              python manage.py runserver 0.0.0.0:8000"
- 
     env_file:
       - ./.env.dev
     depends_on:
@@ -21,23 +20,30 @@ services:
     image: postgres:13
     env_file:
       - ./.env.dev
-    volumes: 
-      - pgdata:/var/lib/postgresql/data
-  redis:
-    image: redis:6.2.6
-  celery:
+    # volumes: 
+    #   - pgdata:/var/lib/postgresql/data
+
+  celery_broker:
+    container_name: interactive_menu_broker
     restart: always
-    build:
-      context: .
-    command: celery -A interactive_menu worker -l info
-    volumes:
-      - .:/code
+    # command: > 
+    #   sh -c "celery -A interactive_menu worker -l info"
+    image: rabbitmq:latest
+    ports:
+      - 5673:5672
     env_file:
       - ./.env.dev
     depends_on:
-      - db
-      - redis
-      - app
+      - web
+
+  redis:
+    container_name: interactive_menu_redis
+    image: redis:latest
+    env_file:
+      - ./.env.dev
+    ports:
+      - 6379:6379
+
 volumes:
   pgdata:
 

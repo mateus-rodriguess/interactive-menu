@@ -9,7 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('_______________ DJANGO __________________')
         self.stdout.write('Waiting for database...')
-        self.stdout.write('_______________ DJANGO __________________')
         db_conn = None
         while not db_conn:
             try:
@@ -20,4 +19,4 @@ class Command(BaseCommand):
                 time.sleep(1)
  
         self.stdout.write(self.style.SUCCESS('Database available!'))
-        self.stdout.write('_______________ DJANGO __________________')
+       

@@ -13,6 +13,15 @@ import os
 from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SITE_ROOT = os.path.abspath(os.path.dirname(__name__))
+
+# admins
+ADMINS = (
+    ('Your Name', 'your_email@example.com'),
+)
+
+# managers
+MANAGERS = ADMINS
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -23,8 +32,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'local') if not DEBUG else "secret key"
 
 ALLOWED_HOSTS = ["*"]
 
+# SITE_URL = os.getenv('SITE_URL', 'url')
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django.contrib.postgres',
     
+    'django_celery_beat',
     'crispy_forms',
     'cpf_field',
     'debug_toolbar',
@@ -100,7 +110,7 @@ REST_FRAMEWORK = {
         'anon': '1000/day',
         'user': '1000/day'
     },
-
+    # filtros 
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 }
@@ -161,12 +171,11 @@ WSGI_APPLICATION = 'interactive_menu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432')
+        'NAME': os.environ.get('DB_NAME', 'app'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASS', 'supersecretpassword'),
+        'HOST': os.environ.get('DB_HOST', 'db'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -250,9 +259,22 @@ INTERNAL_IPS = [
 ]
 
 # Celery config
-CELERY_BROKER_URL = "redis://redis:6379"
+# celery -A interactive_menu worker -l info
+RABBIT_HOST = os.environ.get("RABBIT_HOST", "localhost")
+RABBIT_PORT = os.environ.get("RABBIT_PORT", 5672)
+
+REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
+REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
+
+CELERY_BROKER_URL = f"amqp://celery_broker:5672"
 CELERY_RESULT_BACKEND = "redis://redis:6379"
+
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+# celery -A interactive_menu beat
+CELERY_ALWAYS_EAGER = True
+# para o app 
+# 
