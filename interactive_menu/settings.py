@@ -266,7 +266,7 @@ RABBIT_PORT = os.environ.get("RABBIT_PORT", 5672)
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
 
-CELERY_BROKER_URL = f"amqp://celery_broker:5672"
+CELERY_BROKER_URL = f"amqp://rabbitmq:5672"
 CELERY_RESULT_BACKEND = "redis://redis:6379"
 
 CELERY_ACCEPT_CONTENT = ['application/json']

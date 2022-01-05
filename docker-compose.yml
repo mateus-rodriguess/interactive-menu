@@ -23,7 +23,7 @@ services:
     # volumes: 
     #   - pgdata:/var/lib/postgresql/data
 
-  celery_broker:
+  rabbitmq:
     container_name: interactive_menu_broker
     restart: always
     # command: > 
@@ -43,6 +43,9 @@ services:
       - ./.env.dev
     ports:
       - 6379:6379
+    depends_on:
+      - web
+
 
 volumes:
   pgdata:
