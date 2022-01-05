@@ -26,9 +26,11 @@ MANAGERS = ADMINS
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-DEBUG =  os.getenv("DEBUG", False) 
-# TEMPLATE_DEBUG = DEBUG
-SECRET_KEY = os.getenv("SECRET_KEY", 'local') if not DEBUG else "secret key"
+DEBUG = os.environ.get('DEBUG') == True
+
+TEMPLATE_DEBUG = DEBUG
+
+SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -180,9 +182,6 @@ DATABASES = {
 }
 
 
-        
-        
-        
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -227,13 +226,12 @@ MEDIA_URL = '/media/'
 if DEBUG:
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # redirecinamento de login
@@ -260,14 +258,16 @@ INTERNAL_IPS = [
 
 # Celery config
 # celery -A interactive_menu worker -l info
-RABBIT_HOST = os.environ.get("RABBIT_HOST", "localhost")
+RABBIT_HOST = os.environ.get("HOSTNAME", "localhost")
 RABBIT_PORT = os.environ.get("RABBIT_PORT", 5672)
+RABBIT_PASS = os.environ.get("RABBITMQ_DEFAULT_PASS", "pass")
+RABBIT_USER = os.environ.get("RABBITMQ_DEFAULT_USER", "user")
 
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
 
-CELERY_BROKER_URL = f"amqp://rabbitmq:5672"
-CELERY_RESULT_BACKEND = "redis://redis:6379"
+CELERY_BROKER_URL = f"amqp://{RABBIT_USER}:{RABBIT_PASS}@{RABBIT_HOST}:{RABBIT_PORT}"
+CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}"
 
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
@@ -276,5 +276,6 @@ CELERY_TIMEZONE = TIME_ZONE
 
 # celery -A interactive_menu beat
 CELERY_ALWAYS_EAGER = True
-# para o app 
-# 
+# para o app django_celery_beat
+# celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+

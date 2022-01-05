@@ -8,15 +8,14 @@ Pipfile.lock
 
 # imagem
 images/
-# codigos cli
-docker cli.txt
+
 # vs code
 .idea/
 idea/
 # Pipfile
 Pipfile.lock
 # media arquivos
-media
+media/
 # C extensions
 *.so
 # Distribution / packaging
@@ -115,7 +114,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env.dev
+.env.prod
 .env
 .venv
 env/

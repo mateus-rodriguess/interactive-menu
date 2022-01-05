@@ -8,5 +8,5 @@ app = Celery('interactive_menu')
 app = Celery('tasks', broker=settings.CELERY_BROKER_URL)
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
-app.autodiscover_tasks()
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 

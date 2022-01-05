@@ -1,2 +1,3 @@
-release: python manage.py sync_roles & python manage.py migrate --noinput
-worker: celery --app pythonpro.celery worker --loglevel=info
+release: python manage.py migrate --noinput
+web: gunicorn interactive_menu.wsgi
+worker: celery --app interactive_menu.celery worker --loglevel=info
