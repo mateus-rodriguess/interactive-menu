@@ -28,6 +28,7 @@ MANAGERS = ADMINS
 # SECURITY WARNING: keep the secret key used in production secret!
 DEBUG = os.environ.get('DEBUG') == True
 
+
 TEMPLATE_DEBUG = DEBUG
 
 SECRET_KEY = os.getenv("SECRET_KEY", 'local')
@@ -42,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     
     'rest_framework',
@@ -65,6 +68,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -73,7 +77,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    
 ]
+
 
 ROOT_URLCONF = 'interactive_menu.urls'
 
@@ -175,8 +181,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DB_NAME', 'app'),
         'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASS', 'supersecretpassword'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
+        'PASSWORD': os.environ.get('DB_PASS', '12345678'),
+        'HOST': os.environ.get('DB_HOST', 'postgres'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
@@ -220,16 +226,20 @@ AUTH_USER_MODEL = 'account.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# medias
 MEDIA_URL = '/media/'
-
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+# whitenoise
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -256,18 +266,23 @@ INTERNAL_IPS = [
     # ...
 ]
 
+# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Celery config
 # celery -A interactive_menu worker -l info
 RABBIT_HOST = os.environ.get("HOSTNAME", "localhost")
 RABBIT_PORT = os.environ.get("RABBIT_PORT", 5672)
-RABBIT_PASS = os.environ.get("RABBITMQ_DEFAULT_PASS", "pass")
-RABBIT_USER = os.environ.get("RABBITMQ_DEFAULT_USER", "user")
+RABBIT_PASS = os.environ.get("RABBITMQ_DEFAULT_PASS", "mypass")
+RABBIT_USER = os.environ.get("RABBITMQ_DEFAULT_USER", "admin")
 
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
+REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", "pass")
+REDIS_USER = os.environ.get("REDIS_USER", "user")
 
-CELERY_BROKER_URL = f"amqp://{RABBIT_USER}:{RABBIT_PASS}@{RABBIT_HOST}:{RABBIT_PORT}"
-CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}"
+
+CELERY_BROKER_URL = f'amqp://{RABBIT_USER}:{RABBIT_PASS}@{RABBIT_HOST}:{RABBIT_PORT}'
+CELERY_RESULT_BACKEND = f"redis://redis:6379"
+
 
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'

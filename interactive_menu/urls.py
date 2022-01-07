@@ -34,10 +34,8 @@ handler403 = "apps.core.views.custom_403"
 handler400 = "apps.core.views.custom_400"
 
 urlpatterns = [
-
-    # url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
-
-    # url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    path('media/', serve,{'document_root': settings.MEDIA_ROOT}),
+    path('static/', serve,{'document_root': settings.STATIC_ROOT}),
     
     path('admin/', admin.site.urls),
 
