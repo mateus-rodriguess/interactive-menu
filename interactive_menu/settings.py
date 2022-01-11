@@ -27,7 +27,7 @@ MANAGERS = ADMINS
 
 # SECURITY WARNING: keep the secret key used in production secret!
 DEBUG = os.environ.get('DEBUG') == True
-
+#DEBUG =  True
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -35,8 +35,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 
 ALLOWED_HOSTS = ["*"]
 
-# SITE_URL = os.getenv('SITE_URL', 'url')
-# Application definition
+# Application definitio
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,7 +54,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'cpf_field',
     'debug_toolbar',
-
+    
     'apps.account.apps.AccountConfig',
     'apps.menu.apps.MenuConfig',
     'apps.core.apps.CoreConfig',
@@ -266,7 +265,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
-# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Celery config
 # celery -A interactive_menu worker -l info
 RABBIT_HOST = os.environ.get("HOSTNAME", "localhost")

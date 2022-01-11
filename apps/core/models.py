@@ -5,8 +5,11 @@ from apps.account.models import Profile
 
 class Config(models.Model):
     name = models.CharField(max_length=200, db_index=True)
-    type = models.CharField(max_length=200)
+    type = models.CharField(max_length=200, blank=True)
     slogan = models.ImageField(upload_to='slogan/images',blank=True)
+    
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.name

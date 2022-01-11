@@ -1,34 +1,66 @@
 version: "3.8"
 
 services:
+
   web:
     build: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/code
+    container_name: web
     command: >
       sh -c "python manage.py migrate &&
              python manage.py wait_for_db &&
              python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env.prod
+    ports:
+      - "8000:8000"
+    hostname: web
+    depends_on:
+      - rabbitmq
+      - redis
+      - db
+      
+  celery:
+    build: .
+    container_name: celery
+    command: celery -A interactive_menu worker -l info
+    volumes:
+      - .:/code
     env_file:
       - ./.env.prod
     depends_on:
       - db
       - rabbitmq
       - redis
- 
+
+
+  celery-beat:
+    build: .
+    container_name: celery-beat
+    command: > 
+      sh -c "python manage.py migrate &&
+             celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env.prod      
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+
   db:
     image: postgres:13
     hostname: postgres
+    container_name: postgres
     env_file:
       - ./.env.prod
     volumes: 
       - pgdata:/var/lib/postgresql/data
 
   rabbitmq:
-    container_name: interactive_menu_broker
-   
+    container_name: rabbitmq
     restart: on-failure
     image: rabbitmq:latest
     env_file:
@@ -36,20 +68,18 @@ services:
     depends_on:
       - redis
     ports:
-      - 5672:5672
-      - 15672:15672 # here, we can access rabbitmq management plugin   
+      - 5672:5672 
     hostname: rabbitmq
+  
   redis:
-    container_name: interactive_menu_redis
+    container_name: redis
     image: redis:latest
     restart: on-failure
-    
     hostname: redis
     env_file:
       - ./.env.prod
     ports:
       - 6379:6379
-    
 
 volumes:
   pgdata:
