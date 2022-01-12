@@ -15,9 +15,8 @@ app.conf.beat_schedule =  {
 
 @app.task
 def create_task():
-    #print('\x1b[6;30;42m' + ">>>>>>>> Cron celery test " + str(datetime.now()) + " <<<<<<<<<<<<<<" + '\x1b[0m')
-    Config.objects.create(name="nome", type="ok")
- 
+    print('\x1b[6;30;42m' + ">>>>>>>> Cron celery test " + str(datetime.now()) + " <<<<<<<<<<<<<<" + '\x1b[0m')
+
 @shared_task
 def add(x, y):
     return x + y

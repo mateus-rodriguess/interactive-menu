@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from datetime import timedelta
+# ---
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_ROOT = os.path.abspath(os.path.dirname(__name__))
@@ -33,7 +35,10 @@ TEMPLATE_DEBUG = DEBUG
 
 SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 
-ALLOWED_HOSTS = ["*"]
+SITE_URL = os.getenv('SITE_URL', 'https://interactivemenu.herokuapp.com')
+
+
+ALLOWED_HOSTS = ["interactivemenu.herokuapp.com",'localhost', '127.0.0.1']
 
 # Application definitio
 INSTALLED_APPS = [
@@ -79,6 +84,14 @@ MIDDLEWARE = [
     
 ]
 
+# -_-
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 ROOT_URLCONF = 'interactive_menu.urls'
 
@@ -186,6 +199,9 @@ DATABASES = {
     }
 }
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
+db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -237,7 +253,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-# whitenoise
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -265,6 +282,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
+# app django_celery_beat
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Celery config
 # celery -A interactive_menu worker -l info
@@ -279,8 +297,8 @@ REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", "pass")
 REDIS_USER = os.environ.get("REDIS_USER", "user")
 
 
-CELERY_BROKER_URL = f'amqp://{RABBIT_USER}:{RABBIT_PASS}@{RABBIT_HOST}:{RABBIT_PORT}'
-CELERY_RESULT_BACKEND = f"redis://redis:6379"
+CELERY_BROKER_URL = f"amqp://{RABBIT_USER}:{RABBIT_PASS}@{RABBIT_HOST}:{RABBIT_PORT}"
+CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}"
 
 
 CELERY_ACCEPT_CONTENT = ['application/json']
