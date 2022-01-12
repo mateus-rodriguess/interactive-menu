@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from datetime import timedelta
-# ---
+# heroko
 import dj_database_url
+import django_heroku
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_ROOT = os.path.abspath(os.path.dirname(__name__))
@@ -311,3 +312,5 @@ CELERY_ALWAYS_EAGER = True
 # para o app django_celery_beat
 # celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
 
+#hekoku
+django_heroku.settings(locals())
