@@ -16,22 +16,13 @@ import dj_database_url
 import django_heroku
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE_ROOT = os.path.abspath(os.path.dirname(__name__))
 
-# admins
-ADMINS = (
-    ('Your Name', 'your_email@example.com'),
-)
-
-# managers
-MANAGERS = ADMINS
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-DEBUG = os.environ.get('DEBUG') == True
-#DEBUG =  True
-
+# DEBUG = os.environ.get('DEBUG', False)
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 SECRET_KEY = os.getenv("SECRET_KEY", 'local')
@@ -39,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 SITE_URL = os.getenv('SITE_URL', 'https://interactivemenu.herokuapp.com')
 
 
-ALLOWED_HOSTS = ["interactivemenu.herokuapp.com",'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definitio
 INSTALLED_APPS = [
@@ -59,7 +50,6 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'crispy_forms',
     'cpf_field',
-    'debug_toolbar',
     
     'apps.account.apps.AccountConfig',
     'apps.menu.apps.MenuConfig',
@@ -79,20 +69,17 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-    
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  
 ]
 
-# -_-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 31536000
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+# # -_-
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
 
 ROOT_URLCONF = 'interactive_menu.urls'
 
@@ -185,7 +172,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'interactive_menu.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -203,6 +189,13 @@ DATABASES = {
 DATABASE_URL = os.environ.get('DATABASE_URL')
 db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
 DATABASES['default'].update(db_from_env)
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -250,13 +243,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
+# para produção
+# python manage.py collectstatic
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -272,22 +266,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # session
 CART_SESSION_ID = 'cart'
 
-# para produção
-# python manage.py collectstatic
-
-# debug
-INTERNAL_IPS = [
-    # ...
-    'localhost',
-
-    # ...
-]
-
 # app django_celery_beat
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Celery config
 # celery -A interactive_menu worker -l info
-RABBIT_HOST = os.environ.get("HOSTNAME", "localhost")
+RABBIT_HOST = os.environ.get("RABBITMQ_HOSTNAME", "localhost")
 RABBIT_PORT = os.environ.get("RABBIT_PORT", 5672)
 RABBIT_PASS = os.environ.get("RABBITMQ_DEFAULT_PASS", "mypass")
 RABBIT_USER = os.environ.get("RABBITMQ_DEFAULT_USER", "admin")
@@ -297,10 +280,8 @@ REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", "pass")
 REDIS_USER = os.environ.get("REDIS_USER", "user")
 
-
 CELERY_BROKER_URL = f"amqp://{RABBIT_USER}:{RABBIT_PASS}@{RABBIT_HOST}:{RABBIT_PORT}"
 CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}"
-
 
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'

@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
 
@@ -6,16 +6,16 @@ services:
     build: .
     container_name: web
     command: >
-      sh -c "python manage.py migrate &&
-             python manage.py wait_for_db &&
-             gunicorn interactive_menu.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     env_file:
-      - ./.env.prod
+      - ./.env
+    restart: on-failure
     ports:
       - "8000:8000"
-    hostname: web
     depends_on:
       - rabbitmq
       - redis
@@ -28,12 +28,11 @@ services:
     volumes:
       - .:/code
     env_file:
-      - ./.env.prod
+      - ./.env
     depends_on:
       - db
       - rabbitmq
       - redis
-
 
   celery-beat:
     build: .
@@ -43,7 +42,7 @@ services:
     volumes:
       - .:/code
     env_file:
-      - ./.env.prod      
+      - ./.env
     depends_on:
       - db
       - redis
@@ -54,21 +53,20 @@ services:
     hostname: postgres
     container_name: postgres
     env_file:
-      - ./.env.prod
-    volumes: 
-      - pgdata:/var/lib/postgresql/data
+      - ./.env
+  
 
   rabbitmq:
     container_name: rabbitmq
     restart: on-failure
     image: rabbitmq:latest
     env_file:
-      - ./.env.prod
-    depends_on:
-      - redis
+      - ./.env
+    hostname: rabbitmq
     ports:
       - 5672:5672 
-    hostname: rabbitmq
+    depends_on:
+      - redis
   
   redis:
     container_name: redis
@@ -76,7 +74,7 @@ services:
     restart: on-failure
     hostname: redis
     env_file:
-      - ./.env.prod
+      - ./.env
     ports:
       - 6379:6379
 

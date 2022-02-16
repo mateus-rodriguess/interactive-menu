@@ -28,7 +28,7 @@ Suas compras
                             <div class="col-12 d-flex justify-content-center">
                                 <a href="{{ product.get_absolute_url }}">
                                     <img class="img-fluid card-img-top" 
-                                    src="{% if product.image %}{{ product.image.url }} {% else %}{% static 'img/ze.png' %}{% endif %}">
+                                    src="{% if product.image %}{{ product.image.url }} {% else %}{% static 'img/404.png' %}{% endif %}">
                                     <p class="text-center">{{ product.name }}</p>
                                 </a>
                             </div>

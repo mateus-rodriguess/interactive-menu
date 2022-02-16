@@ -3,7 +3,6 @@ from datetime import datetime
 from interactive_menu.celery import app
 from celery import shared_task
 from celery.schedules import crontab
-from .models import  Config
 
 app.conf.beat_schedule =  {
     'create-task': {
