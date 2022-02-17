@@ -22,8 +22,23 @@
   {% include 'main/navbar.html' %}
   {% endblock navbar %}
 
-  {% block content %}
+  {% block messages %}
+  {% if messages %}
+  <div class="container pt-0">
+      <ul class="messages">
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }}"  role="alert" {% endif %}>
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}{% endif %}
+              {{ message }}
+            </div>
+          {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  
+  {% endblock %}
 
+  {% block content %}
   {% endblock content %}
 
   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>

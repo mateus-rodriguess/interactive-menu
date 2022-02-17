@@ -35,7 +35,7 @@ Suas compras
                         </td>
                         
                         <td class="d-flex justify-content-center align-items-center">
-                            <form action="{% url 'cart:cart_add' product.pk %}" method="POST">
+                            <form action="{% url 'cart:cart_detail' product.pk %}" method="POST">
                                 {{ item.update_quantity_form.quantity }}
                                 {{ item.update_quantity_form.override }}
                                 <div class="col-12">

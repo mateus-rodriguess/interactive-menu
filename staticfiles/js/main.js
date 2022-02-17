@@ -16,4 +16,4 @@ function copiarHTML() {
 
     
     copyText.appendChild(textArea);
-    }
+}
