@@ -1,0 +1,82 @@
+version: "3.9"
+
+services:
+
+  web:
+    build: .
+    container_name: web
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             gunicorn django_challenge.wsgi --bind 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    restart: on-failure
+    ports:
+      - "8000:8000"
+    depends_on:
+      - rabbitmq
+      - redis
+      - db
+      
+  celery:
+    build: .
+    container_name: celery
+    command: celery -A interactive_menu worker -l info
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - rabbitmq
+      - redis
+
+  celery-beat:
+    build: .
+    container_name: celery-beat
+    command: > 
+      sh -c "python manage.py migrate && celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+
+  db:
+    image: postgres:13
+    hostname: postgres
+    container_name: postgres
+    env_file:
+      - ./.env
+  
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: on-failure
+    image: rabbitmq:latest
+    env_file:
+      - ./.env
+    hostname: rabbitmq
+    ports:
+      - 5672:5672 
+    depends_on:
+      - redis
+  
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: on-failure
+    hostname: redis
+    env_file:
+      - ./.env
+    ports:
+      - 6379:6379
+
+volumes:
+  pgdata:
