@@ -44,7 +44,7 @@
             <div class="view overlay">
                 <a href="{{ product.get_absolute_url }}">
                     <img class="card-img-top img-fluid"
-                        src=" {% if product.image %}{{ product.image.url }} {% else %} {% static 'img/404.png' %} {% endif %}">
+                        src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/404.png' %} {% endif %}">
                     <div class="mask rgba-white-slight"></div>
                 </a>
             </div>
@@ -56,7 +56,7 @@
 
                 <div>
                     <h6 class="d-inline mb-2">
-                        R$ {{ product.price }} - <h6 class="d-inline text-success">Disponível</h6>
+                        R$: {{ product.price }} - <h6 class="d-inline text-success">Disponível</h6>
                     </h6>
                 </div>
             

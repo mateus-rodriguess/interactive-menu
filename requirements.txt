@@ -17,6 +17,7 @@ Deprecated==1.2.13
 dj-database-url==0.5.0
 Django==3.2.8
 django-celery-beat==2.2.1
+django-cors-headers==3.11.0
 django-cpf==0.1.0
 django-crispy-forms==1.13.0
 django-filter==21.1

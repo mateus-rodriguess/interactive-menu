@@ -46,7 +46,7 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT)
-   
+
     objects = models.Manager()
     available_mamager = AvailableManager()
 
@@ -63,5 +63,3 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('menu:product_detail', args=[self.id, self.slug])
-
-   

@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # DEBUG = os.environ.get('DEBUG', False)
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 SECRET_KEY = os.getenv("SECRET_KEY", 'local')
@@ -42,18 +42,18 @@ INSTALLED_APPS = [
 
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-     
-    #COR
+
+    # COR
     'corsheaders',
 
     'rest_framework',
     'rest_framework_simplejwt',
     'django.contrib.postgres',
-    
+
     'django_celery_beat',
     'crispy_forms',
     'cpf_field',
-    
+
     'apps.account.apps.AccountConfig',
     'apps.menu.apps.MenuConfig',
     'apps.core.apps.CoreConfig',
@@ -73,16 +73,17 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',  
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+# If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',
-] # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
+    'http://localhost:8000', "https://interactivemenu.herokuapp.com",
+]  # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    'http://localhost:8000',
+    'http://localhost:8000', "https://interactivemenu.herokuapp.com",
 ]
 # # -_-
 # CSRF_COOKIE_SECURE = True
@@ -111,8 +112,8 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FileUploadParser',
         'rest_framework.parsers.FormParser',
     ],
-    'DEFAULT_PERMISSION_CLASSES':(
-        #'rest_framework.permissions.IsAuthenticated',
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -121,20 +122,20 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    # limitadores de da api 
-     'DEFAULT_THROTTLE_CLASSES': [
+    # limitadores de da api
+    'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle'
     ],
-      'DEFAULT_THROTTLE_RATES': {
+    'DEFAULT_THROTTLE_RATES': {
         'anon': '1000/day',
         'user': '1000/day'
     },
-    # filtros 
+    # filtros
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 }
-   
+
 # token JWT
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1) if not DEBUG else timedelta(days=30),
@@ -190,16 +191,17 @@ WSGI_APPLICATION = 'interactive_menu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', 'app'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASS', '12345678'),
-        'HOST': os.environ.get('DB_HOST', 'postgres'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'NAME': os.environ.get('POSTGRES_DB', 'app'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '12345678'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'postgres'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
-db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+db_from_env = dj_database_url.config(
+    default=DATABASE_URL, conn_max_age=500, ssl_require=True)
 DATABASES['default'].update(db_from_env)
 
 
@@ -308,5 +310,5 @@ CELERY_ALWAYS_EAGER = True
 # para o app django_celery_beat
 # celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
 
-#hekoku
+# hekoku
 django_heroku.settings(locals())
