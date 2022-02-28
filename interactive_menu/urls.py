@@ -31,19 +31,21 @@ handler403 = "apps.core.views.custom_403"
 handler400 = "apps.core.views.custom_400"
 
 urlpatterns = [
-    path('media/', serve,{'document_root': settings.MEDIA_ROOT}),
-    path('static/', serve,{'document_root': settings.STATIC_ROOT}),
-    
-    path('admin/', admin.site.urls),
+    path('media/', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('static/', serve, {'document_root': settings.STATIC_ROOT}),
 
+    path('admin/', admin.site.urls),
     path('api/', include('apps.api.urls', namespace='api')),
 
     path('', include('apps.menu.urls', namespace='menu')),
     path('account/', include('apps.account.urls',  namespace='accounts')),
     path('cart/', include('apps.cart.urls', namespace='cart')),
     path('orders/', include('apps.orders.urls', namespace='orders')),
-
 ]
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
- 
+    import debug_toolbar
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

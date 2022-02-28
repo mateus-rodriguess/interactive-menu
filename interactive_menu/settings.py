@@ -19,12 +19,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # DEBUG = os.environ.get('DEBUG', False)
-DEBUG = False
+DEBUG = True
 
 SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 
 SITE_URL = os.getenv('SITE_URL', 'https://interactivemenu.herokuapp.com')
-
 
 ALLOWED_HOSTS = ['*']
 
@@ -35,21 +34,18 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
-
     # COR
     'corsheaders',
-
     'rest_framework',
     'rest_framework_simplejwt',
     'django.contrib.postgres',
-
+    
     'django_celery_beat',
     'crispy_forms',
     'cpf_field',
-
+    # apps
     'apps.account.apps.AccountConfig',
     'apps.menu.apps.MenuConfig',
     'apps.core.apps.CoreConfig',
@@ -71,6 +67,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CACHE_MIDDLEWARE_ALIAS = 'default'  # which cache alias to use
+CACHE_MIDDLEWARE_SECONDS = '600'    # number of seconds to cache a page for (TTL)
+CACHE_MIDDLEWARE_KEY_PREFIX = ''    # should be used if the cache is shared across multiple sites that use the same Django instance
+
 # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
@@ -80,14 +80,15 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOWED_ORIGIN_REGEXES = [
     'http://localhost:8000', "https://interactivemenu.herokuapp.com",
 ]
-# # -_-
-# CSRF_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
+APPEND_SLASH = True
+# -_-
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 ROOT_URLCONF = 'interactive_menu.urls'
 
@@ -172,8 +173,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.cart.context_processors.cart',
-                #here add your context Processors
-                'django.template.context_processors.media',
             ],
         },
     },
@@ -228,6 +227,9 @@ USE_TZ = False
 # User Model
 AUTH_USER_MODEL = 'account.User'
 
+# PASSWORD RESET TIMEOUT
+PASSWORD_RESET_TIMEOUT = 59200
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -238,13 +240,10 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 # python manage.py collectstatic
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATICFILES_DIRS = (
-  # Put strings here, like "/home/html/static" or "C:/www/django/static".
-  # Always use forward slashes, even on Windows.
-  # Don't forget to use absolute paths, not relative paths.
-)
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Simplified static file serving.
@@ -263,7 +262,7 @@ LOGIN_URL = 'account:login'
 # crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# session
+# session cart
 CART_SESSION_ID = 'cart'
 
 # app django_celery_beat
@@ -293,3 +292,8 @@ CELERY_ALWAYS_EAGER = True
 # para o app django_celery_beat
 # celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
 
+# não recomendado 
+try:
+    from .local_settings import *
+except ImportError:
+    pass
