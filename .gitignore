@@ -5,12 +5,11 @@ __pycache__/
 # Pipfile.lock
 Pipfile.lock
 Pipfile.lock
-
+local_settings.py
 #midia
 media_volume/
-#postgres
+media/
 postgres_data/
-
 staticfiles/
 # vs code
 .idea/
