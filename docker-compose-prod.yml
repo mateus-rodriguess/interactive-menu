@@ -1,21 +1,29 @@
 version: "3.9"
 
 services:
-
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    volumes:
+      - ./media_volume:/code/media
+    depends_on:
+      - web
   web:
     build: .
     container_name: web
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
-             gunicorn interactive_menu.wsgi --bind 0.0.0.0:8000"
+             gunicorn interactive_menu.wsgi:application  --bind 0.0.0.0:8000"
     volumes:
       - .:/code
+      - ./media_volume:/code/media/
     env_file:
       - ./.env
     restart: on-failure
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     depends_on:
       - rabbitmq
       - redis
@@ -52,6 +60,8 @@ services:
     image: postgres:13
     hostname: postgres
     container_name: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
   
@@ -80,3 +90,4 @@ services:
 
 volumes:
   pgdata:
+  media_volume:

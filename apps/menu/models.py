@@ -37,7 +37,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=200)
 
     image = models.ImageField(
-        upload_to=f'products/images/%Y/%m/%d/', blank=True)
+        upload_to=f'products/images/', blank=True)
 
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
