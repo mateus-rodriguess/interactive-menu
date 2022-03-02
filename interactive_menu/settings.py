@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # DEBUG = os.environ.get('DEBUG', False)
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = os.getenv("SECRET_KEY", 'local')
 
@@ -82,8 +82,8 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 ]
 APPEND_SLASH = True
 # -_-
-# if not DEBUG:
-#     CSRF_COOKIE_SECURE = True
+if not DEBUG:
+    CSRF_COOKIE_SECURE = True
 #     SESSION_COOKIE_SECURE = True
 #     SECURE_SSL_REDIRECT = True
 #     SECURE_HSTS_SECONDS = 31536000
