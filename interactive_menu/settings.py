@@ -21,11 +21,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # DEBUG = os.environ.get('DEBUG', False)
 DEBUG = False
 
-SECRET_KEY = os.getenv("SECRET_KEY", 'local')
+SECRET_KEY = os.getenv('SECRET_KEY', 'secrectkeydjango')
 
 SITE_URL = os.getenv('SITE_URL', 'https://interactivemenu.herokuapp.com')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','interactivemenu.herokuapp.com']
 
 # Application definitio
 INSTALLED_APPS = [
@@ -75,13 +75,16 @@ CACHE_MIDDLEWARE_KEY_PREFIX = ''    # should be used if the cache is shared acro
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000', "https://interactivemenu.herokuapp.com",
+    'http://localhost:8080', "https://interactivemenu.herokuapp.com",
 ]  # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    'http://localhost:8000', "https://interactivemenu.herokuapp.com",
+    'http://localhost:8080', "https://interactivemenu.herokuapp.com",
 ]
+
+CORS_ALLOW_METHODS  = [ "DELETE" ,"GET" , "OPTIONS" , "PATCH" , "POST" ,"PUT" ,]
+
 APPEND_SLASH = True
-# -_-
+# conf prod
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
 #     SESSION_COOKIE_SECURE = True
@@ -238,7 +241,7 @@ PASSWORD_RESET_TIMEOUT = 59200
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # para produção
-# python manage.py collectstatic
+# python manage.py collectstatic --noinput
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 

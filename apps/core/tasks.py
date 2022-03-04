@@ -7,7 +7,7 @@ from celery.schedules import crontab
 app.conf.beat_schedule =  {
     'create-task': {
         'task': 'apps.core.tasks.create_task',
-        'schedule': crontab(minute = "*"),
+        'schedule': crontab(minute = "59"),
         #'args': ("16"),
     },
 }

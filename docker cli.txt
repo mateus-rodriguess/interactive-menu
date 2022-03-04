@@ -1,8 +1,8 @@
 doker-compose up
-# builder de novo
+
 doker-compose up --build
 
-doker-compose up -d
+docker-compose -f docker-compose.prod.yml up --build
 
 docker-compose exec web python mange.py makemigrations
 
@@ -11,8 +11,13 @@ docker-compose down
 docker-compose run web python manage.py makemigrations
 docker-compose run web python manage.py migrate
 docker-compose run web python manage.py createsuperuser
+
 # cli no conteiner 
 docker exec -it web bash
 
 # acessar o db 
 docker-compose exec db psql -U postgres
+
+ 
+# conceder permissão ao .sh
+chmod +x entrypoint.sh
