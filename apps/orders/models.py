@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.db import models
 from apps.menu.models import Product
 from apps.account.models import User
@@ -10,6 +11,7 @@ STATUS_ORDER_CHOICES = (
 
 
 class Order(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     paid = models.BooleanField(default=False)
     status = models.CharField(choices=STATUS_ORDER_CHOICES,blank=True, null=True, max_length=3)
@@ -36,6 +38,7 @@ STATUS_ITEM_ORDER_CHOICES = (
 
 
 class OrderItem(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     order = models.ForeignKey(Order, related_name="itens", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name="order_items", on_delete=models.CASCADE)
 

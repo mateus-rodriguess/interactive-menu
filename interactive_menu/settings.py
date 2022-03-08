@@ -190,9 +190,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('POSTGRES_DB', 'app'),
-        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '12345678'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'postgres'),
+        'USER': os.environ.get('POSTGRES_USER', 'admin'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '35b23jk5b'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'db'),
         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
@@ -240,7 +240,6 @@ PASSWORD_RESET_TIMEOUT = 59200
 # flash message
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
-# para produção
 # python manage.py collectstatic --noinput
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -275,13 +274,13 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # celery -A interactive_menu worker -l info
 RABBIT_HOST = os.environ.get("RABBITMQ_HOSTNAME", "localhost")
 RABBIT_PORT = os.environ.get("RABBIT_PORT", 5672)
-RABBIT_PASS = os.environ.get("RABBITMQ_DEFAULT_PASS", "mypass")
+RABBIT_PASS = os.environ.get("RABBITMQ_DEFAULT_PASS", "35b23jk5b")
 RABBIT_USER = os.environ.get("RABBITMQ_DEFAULT_USER", "admin")
 
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
-REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", "pass")
-REDIS_USER = os.environ.get("REDIS_USER", "user")
+REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", "35b23jk5b")
+REDIS_USER = os.environ.get("REDIS_USER", "admin")
 
 CELERY_BROKER_URL = f"amqp://{RABBIT_USER}:{RABBIT_PASS}@{RABBIT_HOST}:{RABBIT_PORT}"
 CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}"

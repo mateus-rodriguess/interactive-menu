@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -10,6 +11,7 @@ class AvailableManager(models.Manager):
 
 
 class Category(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, unique=True)
 
@@ -30,6 +32,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     category = models.ForeignKey(Category, related_name='products',
                                  on_delete=models.CASCADE)
 

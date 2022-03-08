@@ -3,11 +3,8 @@
 {% block title %}
 {% if category %}{{ category.name }}{% else %}Produtos{% endif %}
 {% endblock %}
-
-
 {% block content %}
 <div class="container pt-0">
-   
     <div class="row back-ground">
         <div class="row col-12 d-flex justify-content-center align-items-center p-2">
             <div>
@@ -27,18 +24,22 @@
             </div>
         </div>
     </div>
-    <h5 class="text-white">
+    <h5 class="">
         {% if category %}
         {{ category.name }}
         {% else %}
-        Todos os produtos
+         {% if products %}
+            Todos os produtos
+        {% endif %}
         {% endif %}
     </h5>
-
     <div class="row mb-5">
-        
+        {%  if not products %}
+            <div  class="row mb-5">
+                <h4>Nenhum produto ._.</h4>
+            </div>
+        {% endif %}
         {% for product in products %}
-
         <div class="col-sm-4 card booking-card">
             <!-- Card image -->
             <div class="view overlay">
@@ -49,17 +50,14 @@
                 </a>
             </div>
             <div class="card-body">
-                
                 <a class="card-meta" href="{{ product.get_absolute_url }}">
                     <h5 class="card-title font-weight-bold">{{ product.name }}</h5>
                 </a>
-
                 <div>
                     <h6 class="d-inline mb-2">
                         R${{ product.price }} - <h6 class="d-inline text-success">Disponível</h6>
                     </h6>
-                </div>
-            
+                </div>           
                 {% if product.description %}
                 <p class="card-text"> {{ product.description|truncatewords:17|linebreaks}} </p>
                 {% endif %}
@@ -71,5 +69,4 @@
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}

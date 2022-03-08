@@ -1,8 +1,10 @@
+from uuid import uuid4
 from django.db import models
 from django.urls import reverse
 
 
 class Ingredient(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=140, unique=True, db_index=True)
     description = models.TextField(blank=True, null=True)
     pattern = models.BooleanField(default=True)
@@ -30,6 +32,7 @@ STATUS_ITEM_CHOICES = (
 
 
 class Item(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=140, unique=True, db_index=True)
     description = models.TextField(blank=True, null=True)
 
@@ -58,6 +61,7 @@ STATUS_ITEM_STOCK_CHOICES = (
 
 
 class ItemStock(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1, null=False)
     potions = models.FloatField(blank=False, default=0, null=False)
@@ -81,8 +85,7 @@ class ItemStock(models.Model):
 
 
 class ItemIngredient(models.Model):
-    id = models.BigAutoField(auto_created=True, primary_key=True,
-                             serialize=False, editable=False, verbose_name='ID')
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0, null=False)

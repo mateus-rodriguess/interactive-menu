@@ -15,7 +15,8 @@ services:
     build: .
     container_name: web
     command: >
-      sh -c "python manage.py wait_for_db &&
+      sh -c "
+             python manage.py wait_for_db &&
              python manage.py migrate &&
              gunicorn interactive_menu.wsgi:application --timeout 2400 --bind 0.0.0.0:8000"
     volumes:
@@ -62,6 +63,8 @@ services:
     image: postgres:13
     hostname: postgres
     container_name: postgres
+    ports:
+      - 5432:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -90,5 +93,5 @@ services:
       - 6379:6379
 
 volumes:
-  pgdata:
+  postgres_data:
   media_volume:

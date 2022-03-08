@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
@@ -6,6 +7,7 @@ from cpf_field.models import CPFField
 
 
 class User(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     CPF = CPFField('cpf')
     slug = models.SlugField(max_length=150, unique=True)
     
@@ -18,6 +20,7 @@ class User(AbstractUser):
     
 
 class Profile(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='Profile') 
     first_name = models.CharField(max_length=100, blank=True, unique=False, default="Nome")
     last_name = models.CharField(max_length=100, blank=True,  unique=False, default="Sobrenome")    

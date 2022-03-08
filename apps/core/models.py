@@ -1,9 +1,11 @@
+from uuid import uuid4
 from django.db import models
 from django.urls import reverse
 from apps.account.models import Profile
 
 
 class Config(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=200, db_index=True)
     type = models.CharField(max_length=200, blank=True)
     slogan = models.ImageField(upload_to='slogan/images',blank=True)
@@ -23,6 +25,7 @@ STATUS_ORDER_CHOICES = (
 
 
 class Employee(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     member = models.CharField(choices=STATUS_ORDER_CHOICES,blank=True, null=True, max_length=3)
