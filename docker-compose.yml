@@ -9,24 +9,25 @@ services:
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+             python manage.py runserver 0.0.0.0:8080"
     volumes:
       - .:/code
     env_file:
       - ./.env
     restart: on-failure
     ports:
-      - "8080:8000"
+      - "8000:8080"
     depends_on:
+      - db
       - rabbitmq
       - redis
-      - db
+      
       
   celery:
     build: 
       context: ./
     container_name: celery
-    command: celery -A interactive_menu worker -l DEBUG
+    command: celery -A interactive_menu worker -l info
     volumes:
       - .:/code
     env_file:
@@ -35,10 +36,11 @@ services:
       - redis
 
   celery-beat:
-    build: .
+    build: 
+      context: ./
     container_name: celery-beat
     command: > 
-      sh -c "celery -A interactive_menu beat -l DEBUG --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+      sh -c "celery -A interactive_menu beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
     volumes:
       - .:/code
     depends_on:
@@ -52,6 +54,8 @@ services:
       - 5432:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+      - PGDATA=/data/postgres_data
     env_file:
       - ./.env
   

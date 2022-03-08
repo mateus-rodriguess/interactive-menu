@@ -33,9 +33,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    category = models.ForeignKey(Category, related_name='products',
-                                 on_delete=models.CASCADE)
-
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, db_index=True, unique=True)
     slug = models.SlugField(max_length=200)
 
@@ -65,4 +63,4 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('menu:product_detail', args=[self.id, self.slug])
+        return reverse('menu:product_detail', args=[self.slug])

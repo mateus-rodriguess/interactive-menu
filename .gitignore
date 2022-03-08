@@ -5,12 +5,10 @@ __pycache__/
 # Pipfile.lock
 Pipfile.lock
 Pipfile.lock
-local_settings.py
 #midia
 media_volume/
 media/
 postgres_data/
-staticfiles/
 # vs code
 .idea/
 idea/
@@ -69,7 +67,6 @@ coverage.xml
 
 # Django stuff:
 *.log
-local_settings.py
 db.sqlite3
 db.sqlite3-journal
 

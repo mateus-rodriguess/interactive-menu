@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # DEBUG = os.environ.get('DEBUG', False)
-DEBUG = False
+DEBUG = True
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'secrectkeydjango')
 
@@ -192,7 +192,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_DB', 'app'),
         'USER': os.environ.get('POSTGRES_USER', 'admin'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '35b23jk5b'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'db'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'postgres'),
         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
@@ -232,7 +232,7 @@ USE_TZ = False
 AUTH_USER_MODEL = 'account.User'
 
 # PASSWORD RESET TIMEOUT
-PASSWORD_RESET_TIMEOUT = 59200
+PASSWORD_RESET_TIMEOUT = 5920
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -295,8 +295,9 @@ CELERY_ALWAYS_EAGER = True
 # para o app django_celery_beat
 # celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
 
-# não recomendado 
+ENVIRONMENT = os.environ.get("DEVELOPMENT", False)
 try:
-    from .local_settings import *
+    if ENVIRONMENT:
+        from .local_settings import *
 except ImportError:
     pass

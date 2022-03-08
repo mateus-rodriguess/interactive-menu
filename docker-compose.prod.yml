@@ -12,7 +12,9 @@ services:
       - web
       
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: web
     command: >
       sh -c "
@@ -33,7 +35,8 @@ services:
       - db
       
   celery:
-    build: .
+    build: 
+      context: ./
     container_name: celery
     command: celery -A interactive_menu worker -l info
     volumes:
@@ -41,15 +44,14 @@ services:
     env_file:
       - ./.env
     depends_on:
-      - db
-      - rabbitmq
       - redis
 
   celery-beat:
-    build: .
+    build: 
+      context: ./
     container_name: celery-beat
     command: > 
-      sh -c "python manage.py migrate && celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+      sh -c "celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
     volumes:
       - .:/code
     env_file:
@@ -57,16 +59,16 @@ services:
     depends_on:
       - db
       - redis
-      - rabbitmq
 
   db:
     image: postgres:13
-    hostname: postgres
     container_name: postgres
     ports:
       - 5432:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+      - PGDATA=/data/postgres_data
     env_file:
       - ./.env
   
@@ -79,8 +81,6 @@ services:
     hostname: rabbitmq
     ports:
       - 5672:5672 
-    depends_on:
-      - redis
   
   redis:
     container_name: redis
