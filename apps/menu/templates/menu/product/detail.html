@@ -36,22 +36,19 @@
                     </form>
                 </div>
                 <hr>
-                <div class="col-md-12">
-                    <div class="p-1">
+                <div class="col-md-10">
+                    <div class="">
                         <h6>Descrição</h6>
                         <p>
                             {{ product.description|linebreaks }}
                         </p>
                     </div>
-                    <div class="p-1">
+                    <div class="ingredient-list">
                         <h6>Receita</h6>
-                        <p>
-                            {{revenue}}
-                            {% for item in item_revenue %}
-                                {{item.item}} quantidade {{item.quantity}}
-                            <br>
-                            {% endfor %}
-                        </p>
+                        {{revenue}}
+                        {% for item in item_ingredient %}
+                            <p>{{item.item}} quantidade {{item.quantity}}</p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

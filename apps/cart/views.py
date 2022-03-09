@@ -7,9 +7,9 @@ from apps.menu.models import Product
 
 
 @require_POST
-def cart_add(request, product_id):
+def cart_add(request, id):
     cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, id=id)
 
     form = CartAddProductForm(request.POST)
     
@@ -25,9 +25,9 @@ def cart_add(request, product_id):
 
 
 @require_POST
-def cart_remove(request, product_id):
+def cart_remove(request, id):
     cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, id=id)
     cart.remove(product)
     
     return redirect('cart:cart_detail')
@@ -36,8 +36,9 @@ def cart_remove(request, product_id):
 def cart_detail(request):
     
     cart = Cart(request)
+    
     for item in cart:
-       
+        print(item)
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'],
                                                                    'override': True})
   

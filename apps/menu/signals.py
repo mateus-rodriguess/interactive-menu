@@ -6,10 +6,12 @@ from apps.menu.services.resize_image.pillow_image import resize_image
 
 def create_product(sender, instance, created, **kwargs):   
     
-    if created and instance.image:
+    if created:
         path = settings.MEDIA_URL[1:] + str(instance.image)
         resize_image(path)
-        
+    if instance.image:
+        path = settings.MEDIA_URL[1:] + str(instance.image)
+        resize_image(path)
     else:
         if hasattr(instance, 'product') and instance.image:
             path = settings.MEDIA_URL[1:] + str(instance.image)

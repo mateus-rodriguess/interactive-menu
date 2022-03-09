@@ -17,8 +17,7 @@ services:
       dockerfile: Dockerfile
     container_name: web
     command: >
-      sh -c "
-             python manage.py wait_for_db &&
+      sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
              gunicorn interactive_menu.wsgi:application --timeout 2400 --bind 0.0.0.0:8000"
     volumes:
@@ -30,13 +29,13 @@ services:
     expose:
       - 8000
     depends_on:
+      - db
       - rabbitmq
       - redis
-      - db
+      - celery-beat
       
   celery:
-    build: 
-      context: ./
+    build: .
     container_name: celery
     command: celery -A interactive_menu worker -l info
     volumes:
@@ -45,20 +44,17 @@ services:
       - ./.env
     depends_on:
       - redis
+      - db
 
   celery-beat:
-    build: 
-      context: ./
+    build: .
     container_name: celery-beat
-    command: > 
-      sh -c "celery -A interactive_menu beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    command: celery -A interactive_menu beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - .:/code
-    env_file:
-      - ./.env
     depends_on:
-      - db
       - redis
+      - db
 
   db:
     image: postgres:13

@@ -33,3 +33,9 @@ li{
     text-align: center;
 }
 
+.ingredient-list{
+    padding: 10px;
+}
+.icon-cart{
+    width: 120px;
+}

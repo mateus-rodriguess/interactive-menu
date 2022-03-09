@@ -32,5 +32,4 @@ docker-compose up
 ```bash
 docker-compose run web python manage.py createsuperuser
 ```
-
 Seu aplicativo estará em execução em `http://127.0.0.1:8000`

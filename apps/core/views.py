@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
 
 def custom_404(request, exception, template_name="404.html"):
     response = render(request, template_name)

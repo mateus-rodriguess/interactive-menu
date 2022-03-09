@@ -42,6 +42,3 @@ class Employee(models.Model):
         verbose_name = "employe"
         verbose_name_plural = "employes"
     
-
-    def get_absolute_url(self):
-        return reverse("employee:employee-detail-view", kwargs={"slug": self.profile})

@@ -27,15 +27,18 @@ Suas compras
                         <td>
                             <div class="col-12 d-flex justify-content-center">
                                 <a href="{{ product.get_absolute_url }}">
-                                    <img class="img-fluid card-img-top" 
-                                    src="{% if product.image %}{{ product.image.url }} {% else %}{% static 'img/404.png' %}{% endif %}">
+                                    <div class="icon-cart">
+                                        <img class="img-fluid card-img-top" 
+                                        src="{% if product.image %}{{ product.image.url }} {% else %}{% static 'img/404.png' %}{% endif %}">
+                                    </div>
+                                   
                                     <p class="text-center">{{ product.name }}</p>
                                 </a>
                             </div>
                         </td>
                         
                         <td class="d-flex justify-content-center align-items-center">
-                            <form action="{% url 'cart:cart_detail' product.pk %}" method="POST">
+                            <form action="{% url 'cart:cart_add' product.id %}" method="POST">
                                 {{ item.update_quantity_form.quantity }}
                                 {{ item.update_quantity_form.override }}
                                 <div class="col-12">
@@ -50,9 +53,9 @@ Suas compras
                         </td>
 
                         <td>
-                            <form action="{% url 'cart:cart_remove'  product.pk %}" method="POST">
+                            <form action="{% url 'cart:cart_remove' product.id %}" method="POST">
                                 <div class="mt-3">
-                                    <input class="btn btn-danger mt-4" type="submit" value="Remover">
+                                    <input class="btn btn-danger mt-4" type="submit" value="remover">
                                 </div>
 
                                 {% csrf_token %}

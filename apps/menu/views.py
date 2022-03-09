@@ -25,19 +25,19 @@ def product_list(request, category_slug=None):
             query = form.cleaned_data['query']
             products = Product.available_mamager.annotate(
                 search=SearchVector('name', 'description')).filter(search=query)
-            
+
     return render(request, 'menu/product/list.html', {'category': category,
                                                       'categories': categories,
                                                       'products': products, 'form': form})
 
 
-def product_detail(request, id, slug):
-    product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    ingredient = Ingredient.objects.filter(pk=product.pk).last()
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug, available=True)
+    ingredient = Ingredient.objects.filter(id=product.ingredient.pk).first()
     item_ingredient = ItemIngredient.objects.filter(ingredient=ingredient)
-   
+
     cart_product_form = CartAddProductForm()
-  
+
     return render(request,
                   'menu/product/detail.html',
                   {'product': product, "item_ingredient": item_ingredient, "ingredient": ingredient,
