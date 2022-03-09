@@ -21,11 +21,10 @@ services:
       - db
       - rabbitmq
       - redis
-      
+      - celery-beat
       
   celery:
-    build: 
-      context: ./
+    build: .
     container_name: celery
     command: celery -A interactive_menu worker -l info
     volumes:
@@ -34,13 +33,12 @@ services:
       - ./.env
     depends_on:
       - redis
+      - db
 
   celery-beat:
-    build: 
-      context: ./
+    build: .
     container_name: celery-beat
-    command: > 
-      sh -c "celery -A interactive_menu beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    command: celery -A interactive_menu beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - .:/code
     depends_on:

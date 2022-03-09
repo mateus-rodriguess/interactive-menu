@@ -13,7 +13,7 @@ docker-compose run web python manage.py migrate
 docker-compose run web python manage.py createsuperuser
 
 # cli no conteiner 
-docker exec -it web bash
+docker exec -it web sh
 
 # acessar o db 
 docker-compose exec db psql -U postgres
