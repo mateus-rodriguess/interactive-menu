@@ -38,7 +38,7 @@ services:
   celery-beat:
     build: .
     container_name: celery-beat
-    command: celery -A interactive_menu beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    command: python manage.py migrate && celery -A interactive_menu beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - .:/code
     depends_on:
@@ -48,12 +48,13 @@ services:
   db:
     image: postgres:13
     container_name: postgres
+    hostname: postgres
     ports:
       - 5432:5432
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data/
-    environment:
-      - PGDATA=/data/postgres_data
+    # volumes:
+    #   - ./postgres_data:/var/lib/postgresql/data/
+    # environment:
+    #   - PGDATA=/data/postgres_data
     env_file:
       - ./.env
   
