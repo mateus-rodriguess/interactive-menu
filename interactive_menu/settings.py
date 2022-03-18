@@ -21,7 +21,7 @@ ADMINS = [("Mateus", "mateus.rodrigues.sistema@gmail.com"), ]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # DEBUG = os.environ.get('DEBUG', False)
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'secrectkeydjango')
 

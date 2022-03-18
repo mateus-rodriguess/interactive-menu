@@ -24,7 +24,7 @@ class Order(models.Model):
         ordering = ('-created',)
     
     def __str__(self):
-        return f'Order {self.id}'
+        return f'Order User {self.user.username}'
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
@@ -50,7 +50,7 @@ class OrderItem(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.product.name)
 
     def get_cost(self):
         return self.price * self.quantity
